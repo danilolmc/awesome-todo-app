@@ -3,15 +3,23 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { InputTaskComponent } from './input-task.component';
 import { By } from '@angular/platform-browser';
 import { FormControl } from '@angular/forms';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+
+
+const serviceTask = {
+
+  addTask : jest.fn().mockReturnValue(undefined),
+}
 
 describe('InputSearchComponent', () => {
   let component: InputTaskComponent;
   let fixture: ComponentFixture<InputTaskComponent>;
-  let inputTask : FormControl;
+  let inputTask: FormControl;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [InputTaskComponent]
+      declarations: [InputTaskComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();
   });
@@ -31,37 +39,44 @@ describe('InputSearchComponent', () => {
 
     inputTask.setValue('Make walking')
 
-    expect(inputTask.valid).toBeTruthy();
+    const fieldIsValid = component.valitadeField();
+
+    expect(fieldIsValid).toBeTruthy();
   })
 
   test('should invalidate adding action if task field is invalid', () => {
 
     inputTask.setValue('')
 
-    expect(inputTask.valid).toBeFalsy();
+    const statusField = component.valitadeField();
+
+    expect(statusField).toBeFalsy();
   })
 
   test('should add task to service if keydown is \'enter\' and task input is valid', () => {
 
     const input = fixture.debugElement.query(By.css('input')).nativeElement;
 
-    let keyDownEvent = new KeyboardEvent('keydown', {'key': 'enter'})
+    let keyDownEvent = new KeyboardEvent('keydown', { 'key': 'enter' })
 
     inputTask.setValue('My new Task');
 
-    input.addEventListener('keydown', (event :  KeyboardEvent) =>{
-      console.log(event.key);
+    input.addEventListener('keydown', (event: KeyboardEvent) => {
 
       expect(event.key).toBe('enter');
     })
 
     input.dispatchEvent(keyDownEvent);
 
-    console.log(inputTask.valid);
+    const addNewTask = jest.spyOn(component, 'addNewTask');
 
-    expect(inputTask.valid).toBeTruthy();
+    component.addNewTask();
 
-    // expect(component.addNewTask() ).toBeCalledTimes(2)
+    const statusField = component.valitadeField();
+
+    expect(statusField).toBeTruthy();
+
+    expect(addNewTask).toBeCalledTimes(1)
 
   })
 });

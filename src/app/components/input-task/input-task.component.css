@@ -1,3 +1,15 @@
 .input-container{
-  border: 1px solid red;
+  margin-top: 5vh;
+  background: var(--background-container-color);
+  display: flex;
+  justify-content: space-between;
+  min-height: 7vh;
+  border-radius: 10px;
+}
+
+.input-container input{
+  width: 90%;
+  background: transparent;
+  padding: 20px;
+  font-size: 20px;
 }
