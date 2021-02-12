@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Task } from 'src/app/core/Task';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
 
 @Component({
   selector: 'task-item',
@@ -12,14 +13,22 @@ export class TaskItemComponent implements OnInit {
 
   isSelected = false;
 
+  @ViewChild('checkbox') checkbox !: CheckboxComponent;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  selectedData(event : boolean){
+  selectedData(event: boolean) {
 
     this.isSelected = event;
+  }
+
+  selectTaskByClickingAtItName() {
+
+    this.checkbox.toggleCheckBox();
+    this.isSelected = this.checkbox.isSelected;
   }
 
 }
