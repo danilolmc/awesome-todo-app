@@ -2,17 +2,16 @@
   margin-top: 5vh;
   background: var(--background-container-color);
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  column-gap: 10px;
   min-height: 7vh;
-  border-radius: 10px;
-  padding: 0 25px;
+  border-radius: 5px;
+  padding: 0 10px;
 }
 
 .input-container input{
-  width: 100%;
+  width: 85%;
   background: transparent;
-  padding: 20px;
+  padding: 20px 0;
   font-size: 20px;
 }

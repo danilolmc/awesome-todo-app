@@ -1,0 +1,25 @@
+li{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* height: 55px; */
+  column-gap: 20px;
+  padding: 20px 25px;
+  border-bottom: 1px solid var(--color-item-finished);
+}
+
+li:hover button{
+
+  opacity: 1;
+}
+
+label{
+  width: 82%;
+  font-size: 20px;
+  color: var(--delete-task-font-color);
+}
+button{
+  background: none;
+  opacity: 0;
+  transition: .5s ease;
+}

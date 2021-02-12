@@ -1,6 +1,60 @@
-.task-list{
+.task-list {
   margin-top: 30px;
   background: var(--background-container-color);
-  border-radius: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px -5px rgba(72, 75, 106,.2);
+}
+
+.task-list footer {
+  display: grid;
+  grid-template-rows: 1;
+  grid-template-columns: 1fr 2.5fr 1fr;
+  justify-content: space-between;
+  align-content: center;
+  height: 60px;
+  padding-right: 15px;
+}
+
+.task-list footer > div {
+  display: flex;
+  column-gap: 14px;
+  justify-content: center;
+  align-items: center;
+}
+
+footer > div,
+button {
+  color: var(--delete-task-font-color);
+}
+
+.task-list footer div:first-child {
+  font-size: 14px;
+  color: var(--delete-task-font-color);
+}
+
+button {
+  background: none;
+  cursor: pointer;
+  transition: .5s ease;
+}
+
+.task-list footer div:nth-child(2) button {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--delete-task-font-color);
+}
+
+.task-list footer div:nth-child(3) button {
+  font-size: 15px;
+  color: var(--delete-task-font-color);
+}
+
+.task-list footer div:nth-child(2) button:hover {
+  color: rgb(46, 133, 231);
+}
+
+.task-list footer div:nth-child(3) button:hover {
+  color: var(--tasks-font-color);
 }
 

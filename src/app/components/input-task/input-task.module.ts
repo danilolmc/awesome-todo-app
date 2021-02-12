@@ -2,15 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InputTaskComponent } from './input-task.component';
 import { ReactiveFormsModule } from "@angular/forms"
-import { CheckboxComponent } from '../checkbox/checkbox.component';
+import { CheckboxModule } from '../checkbox/checkbox.module';
 
 
 @NgModule({
-  declarations: [InputTaskComponent, CheckboxComponent],
+  declarations: [InputTaskComponent],
   exports: [InputTaskComponent],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CheckboxModule
   ]
 })
 export class InputTaskModule { }
