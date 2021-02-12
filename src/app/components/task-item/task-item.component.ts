@@ -10,9 +10,16 @@ export class TaskItemComponent implements OnInit {
 
   @Input() task !: Task;
 
+  isSelected = false;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  selectedData(event : boolean){
+
+    this.isSelected = event;
   }
 
 }

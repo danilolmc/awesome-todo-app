@@ -2,9 +2,8 @@ li{
   display: flex;
   justify-content: space-around;
   align-items: center;
-  /* height: 55px; */
   column-gap: 20px;
-  padding: 20px 30px;
+  padding: 23px 30px;
   border-bottom: 1px solid var(--color-item-finished);
 }
 
@@ -17,9 +16,16 @@ label{
   width: 82%;
   font-size: 20px;
   color: var(--delete-task-font-color);
+  transition: .5s ease;
 }
 button{
   background: none;
   opacity: 0;
   transition: .5s ease;
+}
+
+.selectedTask{
+
+  text-decoration: line-through;
+  color: var(--color-item-finished);
 }

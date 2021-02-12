@@ -1,6 +1,6 @@
 <li>
-  <checkbox [taskId]="task.id.toString()"></checkbox>
-  <label>{{task.description}}</label>
+    <checkbox [taskId]="task.id.toString()" (selectTask)="selectedData($event)"></checkbox>
+  <label selectedEffecttask [statusTaskSelected]="isSelected">{{task.description}}</label>
   <button>
     <img src="../../../assets/icon-cross.svg" alt="delete task icon">
   </button>

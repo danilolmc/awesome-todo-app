@@ -1,6 +1,6 @@
 <div class="checkbox-container">
   <label [for]="'checkbox'+ taskId">
-    <input type="checkbox" [id]="'checkbox' + taskId">
+    <input type="checkbox" [id]="'checkbox' + taskId" (change)="selectCheckbox()">
     <div class="check-icon-container">
       <span>
         <img src="../../../assets/icon-check.svg" alt="icon check">
