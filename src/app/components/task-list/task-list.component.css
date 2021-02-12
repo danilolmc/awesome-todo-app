@@ -1,0 +1,6 @@
+.task-list{
+  margin-top: 30px;
+  background: var(--background-container-color);
+  border-radius: 10px;
+}
+

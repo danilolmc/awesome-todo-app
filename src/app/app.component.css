@@ -4,7 +4,6 @@
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
   padding: 2rem;
 }
 
@@ -20,10 +19,11 @@
 }
 
 .todo-list-container{
-  transform: translateY(-38vh);
+  transform: translateY(-5vh);
   margin-top: 100px;
   width: 100%;
   max-width: 650px;
+  z-index: 100;
 }
 
 .todo-list-container header{

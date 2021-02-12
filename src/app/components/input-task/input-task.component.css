@@ -3,12 +3,15 @@
   background: var(--background-container-color);
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  column-gap: 10px;
   min-height: 7vh;
   border-radius: 10px;
+  padding: 0 25px;
 }
 
 .input-container input{
-  width: 90%;
+  width: 100%;
   background: transparent;
   padding: 20px;
   font-size: 20px;
