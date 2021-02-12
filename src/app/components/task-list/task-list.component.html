@@ -1,11 +1,6 @@
 <div class="task-list">
   <ul>
-    <task-item></task-item>
-    <task-item></task-item>
-    <task-item></task-item>
-    <task-item></task-item>
-    <task-item></task-item>
-    <task-item></task-item>
+    <task-item *ngFor="let task of (taskList$|async)" [task]="task"></task-item>
   </ul>
   <footer>
     <div>

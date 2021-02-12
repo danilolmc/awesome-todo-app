@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskListComponent } from './task-list.component';
-import { TaskItemComponent } from '../task-item/task-item.component';
-import { CheckboxComponent } from '../checkbox/checkbox.component';
-import { CheckboxModule } from '../checkbox/checkbox.module';
 import { TaskItemModule } from '../task-item/task-item.module';
-
+import { TasksService } from 'src/app/services/tasks-service/tasks-service.service';
+import {TaskList} from "../../core/TaskList"
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -13,7 +12,15 @@ import { TaskItemModule } from '../task-item/task-item.module';
   exports: [TaskListComponent],
   imports: [
     CommonModule,
-    TaskItemModule
+    TaskItemModule,
+    HttpClientModule
+  ],
+  providers: [
+    TasksService,
+    {
+      provide: TaskList,
+      useClass: TasksService
+    }
   ]
 })
 export class TaskListModule { }

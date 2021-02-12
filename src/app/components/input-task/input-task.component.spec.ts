@@ -50,10 +50,13 @@ describe('InputSearchComponent', () => {
 
     const statusField = component.valitadeField();
 
+    const addNewTask = jest.spyOn(component, 'addNewTask');
+
     expect(statusField).toBeFalsy();
+    expect(addNewTask).toBeCalledTimes(0);
   })
 
-  test('should add task to service if keydown is \'enter\' and task input is valid', () => {
+  test('should add task to service when keydown is \'enter\' and task input is valid', () => {
 
     const input = fixture.debugElement.query(By.css('input')).nativeElement;
 
@@ -79,4 +82,6 @@ describe('InputSearchComponent', () => {
     expect(addNewTask).toBeCalledTimes(1)
 
   })
+
+
 });

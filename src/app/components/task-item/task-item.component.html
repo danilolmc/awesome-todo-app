@@ -1,6 +1,6 @@
 <li>
-  <checkbox></checkbox>
-  <label>Complete Online JavaScript course</label>
+  <checkbox [taskId]="task.id.toString()"></checkbox>
+  <label>{{task.description}}</label>
   <button>
     <img src="../../../assets/icon-cross.svg" alt="delete task icon">
   </button>

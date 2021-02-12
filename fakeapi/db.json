@@ -1,0 +1,34 @@
+{
+  "tasks": [
+    {
+      "id": 0,
+      "description": "10 minutes meditation",
+      "status": "active"
+    },
+    {
+      "id": 1,
+      "description": "Pick up groceries",
+      "status": "active"
+    },
+    {
+      "id": 2,
+      "description": "Read for 1 hour",
+      "status": "active"
+    },
+    {
+      "id": 3,
+      "description": "Complete todo app on Frontend Mentor",
+      "status": "active"
+    },
+    {
+      "id": 4,
+      "description": "Jog around the park 3x",
+      "status": "active"
+    },
+    {
+      "id": 5,
+      "description": "Complete online JavaScript course",
+      "status": "active"
+    }
+  ]
+}

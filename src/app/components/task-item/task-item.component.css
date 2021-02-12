@@ -4,7 +4,7 @@ li{
   align-items: center;
   /* height: 55px; */
   column-gap: 20px;
-  padding: 20px 25px;
+  padding: 20px 30px;
   border-bottom: 1px solid var(--color-item-finished);
 }
 

@@ -3,7 +3,7 @@
   height: 29px;
 }
 
-#checkbox{
+input[type="checkbox"]{
   display: none;
 }
 
@@ -39,10 +39,10 @@
 }
 
 
-#checkbox:checked + .check-icon-container{
+input[type="checkbox"]:checked + .check-icon-container{
   background: linear-gradient(120deg,hsl(192, 100%, 67%),hsl(280, 87%, 65%));
 }
 
-#checkbox:checked + .check-icon-container span{
+input[type="checkbox"]:checked + .check-icon-container span{
   background: transparent;
 }

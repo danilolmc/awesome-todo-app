@@ -1,0 +1,27 @@
+import { Injectable } from '@angular/core';
+import { TaskList } from 'src/app/core/TaskList';
+import { Observable, from, of } from 'rxjs';
+import { Task } from 'src/app/core/Task';
+import { environment } from 'src/environments/environment';
+import { HttpClient} from "@angular/common/http";
+
+const apiUrl = environment.apiFakeUrl;
+
+@Injectable({
+  providedIn: 'root'
+})
+export class TasksService{
+
+  tasks = [{
+    id: 0,
+    description: "10 minutes meditation",
+    status: "active"
+  }]
+
+  constructor(private httpClient :  HttpClient) { }
+
+  getTaskList() : Observable<Task[]> {
+
+    return this.httpClient.get<Task[]>(`${apiUrl}/tasks`);
+  }
+}

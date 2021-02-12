@@ -8,6 +8,7 @@ import { TaskListComponent } from './components/task-list/task-list.component';
 import { TaskItemComponent } from './components/task-item/task-item.component';
 import { TaskListModule } from './components/task-list/task-list.module';
 import { CheckboxModule } from './components/checkbox/checkbox.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { CheckboxModule } from './components/checkbox/checkbox.module';
     ThemeDirective,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     InputTaskModule,
     TaskListModule,
