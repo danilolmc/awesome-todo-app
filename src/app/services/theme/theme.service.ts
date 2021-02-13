@@ -10,8 +10,8 @@ export class ThemeService {
 
   activatedTheme = new BehaviorSubject<Theme>(lightTheme);
 
-  getTheme(): Observable<Theme> {
-    return this.activatedTheme.asObservable();
+  getTheme() {
+    return this.activatedTheme.value;
   }
 
 

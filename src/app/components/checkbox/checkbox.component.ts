@@ -5,7 +5,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.css']
 })
-export class CheckboxComponent{
+export class CheckboxComponent implements OnInit{
 
   @Input() taskId : string = "checkbox";
 
@@ -15,6 +15,8 @@ export class CheckboxComponent{
 
   constructor() { }
 
+  ngOnInit(): void {
+  }
 
   emitStatusCheckbox(){
 

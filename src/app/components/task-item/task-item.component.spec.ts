@@ -1,27 +1,51 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { Component, Directive, NO_ERRORS_SCHEMA, ViewChild } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TaskItemComponent } from './task-item.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
+import { ThemeDirective } from 'src/app/shared/directives/theme/theme.directive';
+import { CommonModule } from '@angular/common';
+import { Task } from 'src/app/core/Task';
+import { SelectTaskDirective } from 'src/app/shared/directives/select-task/select-task.directive';
+
+
+
+@Component({ selector: 'checkbox', template: "<checkbox [taskId]='0' #checkbox></checkbox>" })
+class CheckboxMock { }
+
+
+@Directive({ selector: '[theme]' })
+class DirectiveMOck { }
+
+const task: Task =
+{
+  id: 0,
+  description: "MyTask",
+  status: 'active'
+}
+
 
 describe('TaskItemComponent', () => {
   let component: TaskItemComponent;
   let fixture: ComponentFixture<TaskItemComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ TaskItemComponent ],
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [TaskItemComponent, CheckboxComponent, SelectTaskDirective],
       schemas: [NO_ERRORS_SCHEMA]
     })
-    .compileComponents();
-  });
+      .compileComponents()
+      .then((data) => {
+        fixture = TestBed.createComponent(TaskItemComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      })
+      .catch(() => {})
+  }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TaskItemComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
 
-  it('should create', () => {
+  it('should create', (done) => {
+
     expect(component).toBeTruthy();
+    done()
   });
 });

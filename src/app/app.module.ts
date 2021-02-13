@@ -6,6 +6,7 @@ import { CheckboxModule } from './components/checkbox/checkbox.module';
 import { InputTaskModule } from './components/input-task/input-task.module';
 import { TaskListModule } from './components/task-list/task-list.module';
 import { ThemeDirective } from './shared/directives/theme/theme.directive';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ThemeDirective } from './shared/directives/theme/theme.directive';
     BrowserModule,
     InputTaskModule,
     TaskListModule,
-    CheckboxModule
+    CheckboxModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

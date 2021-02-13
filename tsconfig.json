@@ -2,6 +2,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+
+    "emitDecoratorMetadata": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

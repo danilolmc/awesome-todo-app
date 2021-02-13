@@ -1,6 +1,9 @@
 <div class="task-list">
   <ul>
     <task-item *ngFor="let task of (taskList$|async)" [task]="task"></task-item>
+    <div *ngIf="!(taskList$|async)" class="hasNoTasks">
+      No Tasks
+    </div>
   </ul>
   <footer>
     <div>

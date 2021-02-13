@@ -11,6 +11,7 @@ const serviceTask = {
   addTask : jest.fn().mockReturnValue(undefined),
 }
 
+
 describe('InputSearchComponent', () => {
   let component: InputTaskComponent;
   let fixture: ComponentFixture<InputTaskComponent>;

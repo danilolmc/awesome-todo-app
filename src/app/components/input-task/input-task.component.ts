@@ -17,7 +17,7 @@ export class InputTaskComponent implements OnInit {
 
   addNewTask(){
 
-    this.valitadeField() && console.log("campo valido")
+    this.valitadeField()
   }
 
   valitadeField(){

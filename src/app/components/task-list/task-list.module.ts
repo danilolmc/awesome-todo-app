@@ -13,14 +13,6 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     TaskItemModule,
-    HttpClientModule
-  ],
-  providers: [
-    TasksService,
-    {
-      provide: TaskList,
-      useClass: TasksService
-    }
   ]
 })
 export class TaskListModule { }

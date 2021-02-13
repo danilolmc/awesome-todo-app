@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { TaskListComponent } from './task-list.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { from } from 'rxjs';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { Task } from 'src/app/core/Task';
-
-import { TasksService } from "../../services/tasks-service/tasks-service.service";
 import { TaskList } from 'src/app/core/TaskList';
+import { TasksService } from "../../services/tasks-service/tasks-service.service";
+import { TaskItemModule } from '../task-item/task-item.module';
+import { TaskListComponent } from './task-list.component';
+
+
 
 describe('TaskListComponent', () => {
   let component: TaskListComponent;
@@ -20,44 +20,45 @@ describe('TaskListComponent', () => {
     }
   ]
 
-  const taskService : TaskList = {
+  const taskService: TaskList = {
 
-    getTaskList: jest.fn().mockReturnValue(from(taskList))
+    getTaskList: jest.fn().mockReturnValue(of(taskList))
   }
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
       declarations: [TaskListComponent],
-      schemas: [NO_ERRORS_SCHEMA],
+      imports: [TaskItemModule],
       providers: [
-        TasksService,
         {
           provide: TasksService, useValue: taskService
         }
       ]
     })
-      .compileComponents();
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(TaskListComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      })
+  }));
+
+
+  beforeEach(() => { })
+
+  it('should create', done => {
+    expect(component).toBeDefined();
+    done();
   });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TaskListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  test('should retrieve task list', done => {
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
 
-  test('should retrieve task list', () => {
+    taskService.getTaskList();
 
-    const retrievedTaskList = taskService.getTaskList();
+    expect(taskService.getTaskList).toBeCalled()
 
-    const spyGetTaskFunction = jest.spyOn(taskService, 'getTaskList');
-    // const spyComponentGetTaskFunction = jest.spyOn(component, 'getTaskList');
-
-    expect(retrievedTaskList).toBeDefined();
-    expect(spyGetTaskFunction).toBeCalledTimes(1)
+    done();
 
   })
 });

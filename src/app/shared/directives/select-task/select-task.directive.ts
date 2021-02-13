@@ -1,4 +1,4 @@
-import { Directive, Renderer2, ElementRef, Input, OnInit, OnChanges } from '@angular/core';
+import { Directive, Renderer2, ElementRef, Input, OnInit, OnChanges, HostBinding } from '@angular/core';
 
 @Directive({
   selector: '[selectedEffecttask]'
@@ -7,19 +7,12 @@ export class SelectTaskDirective implements OnChanges {
 
   @Input() statusTaskSelected = false;
 
-  constructor(private render: Renderer2, private element: ElementRef) { }
+  constructor() { }
+
+  @HostBinding('class.selectedTask') isSelected = false;
 
   ngOnChanges() {
 
-    if (this.statusTaskSelected) {
-
-      this.render.addClass(this.element.nativeElement, 'selectedTask');
-    } else {
-
-      this.render.removeClass(this.element.nativeElement, 'selectedTask');
-    }
-
+    this.isSelected = this.statusTaskSelected;
   }
-
-
 }
