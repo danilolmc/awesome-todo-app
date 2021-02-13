@@ -59,7 +59,7 @@ describe('TasksServiceService', () => {
 
   test('should retrive active task list', () => {
 
-    const spyGetTaskList = jest.spyOn(service, 'getActiveTaskList');
+    const spyGetActiveTaskList = jest.spyOn(service, 'getActiveTaskList');
 
     service.getActiveTaskList().subscribe(list => {
       expect(list).toEqual(taskList);
@@ -68,9 +68,27 @@ describe('TasksServiceService', () => {
     const req = httpMock.expectOne(`${service.apiUrl}/tasks?status=active`)
 
     expect(req.request.method).toBe('GET');
-    expect(spyGetTaskList).toBeCalledTimes(1);
+    expect(spyGetActiveTaskList).toBeCalledTimes(1);
 
     req.flush(taskList);
+
+    httpMock.verify();
+  })
+
+  test('should retrive completed task list', () => {
+
+    const spyGetCompletedTaskList = jest.spyOn(service, 'getCompletedTaskList');
+
+    service.getCompletedTaskList().subscribe(list => {
+      expect(list).toEqual(taskList[1]);
+    })
+
+    const req = httpMock.expectOne(`${service.apiUrl}/tasks?status=completed`)
+
+    expect(req.request.method).toBe('GET');
+    expect(spyGetCompletedTaskList).toBeCalledTimes(1);
+
+    req.flush(taskList[1]);
 
     httpMock.verify();
   })
