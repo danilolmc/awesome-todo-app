@@ -17,12 +17,19 @@ describe('TaskListComponent', () => {
       id: 0,
       description: "MyTask",
       status: 'active'
+    },
+    {
+      id: 0,
+      description: "MyTask",
+      status: 'completed'
     }
   ]
 
   const taskService: TaskList = {
 
-    getTaskList: jest.fn().mockReturnValue(of(taskList))
+    getTaskList: jest.fn().mockReturnValue(of(taskList)),
+    getActiveTaskList: jest.fn().mockReturnValue(of(taskList.filter(task => task.status === 'active'))),
+    getCompletedTaskList: jest.fn().mockReturnValue(of(taskList.filter(task => task.status === 'completed')))
   }
 
   beforeEach(waitForAsync(() => {
@@ -46,19 +53,29 @@ describe('TaskListComponent', () => {
 
   beforeEach(() => { })
 
-  it('should create', done => {
+  it('should create', () => {
     expect(component).toBeDefined();
-    done();
   });
 
-  test('should retrieve task list', done => {
+  test('should retrieve task list', () => {
 
+    taskService.getTaskList().subscribe(list => {
 
-    taskService.getTaskList();
+      expect(list.length).toEqual(2)
+    })
 
     expect(taskService.getTaskList).toBeCalled()
 
-    done();
+  })
+
+  test('should retrieve only active tasks list', () => {
+
+    taskService.getActiveTaskList().subscribe(list => {
+
+      expect(list.length).toEqual(1)
+    })
+
+    expect(taskService.getActiveTaskList).toBeCalled()
 
   })
 });

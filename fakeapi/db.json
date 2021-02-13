@@ -18,17 +18,18 @@
     {
       "id": 3,
       "description": "Complete todo app on Frontend Mentor",
-      "status": "active"
+      "status": "completed"
     },
     {
       "id": 4,
       "description": "Jog around the park 3x",
-      "status": "active"
+      "status": "completed"
     },
     {
       "id": 5,
       "description": "Complete online JavaScript course",
-      "status": "active"
+      "status": "completed"
     }
   ]
+
 }

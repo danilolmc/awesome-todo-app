@@ -5,12 +5,13 @@ import { Task } from 'src/app/core/Task';
 import { environment } from 'src/environments/environment';
 import { HttpClient} from "@angular/common/http";
 
-const apiUrl = environment.apiFakeUrl;
 
 @Injectable({
   providedIn: 'root'
 })
-export class TasksService{
+export class TasksService implements TaskList{
+
+  apiUrl = environment.apiFakeUrl;
 
   tasks = [{
     id: 0,
@@ -22,6 +23,16 @@ export class TasksService{
 
   getTaskList() : Observable<Task[]> {
 
-    return this.httpClient.get<Task[]>(`${apiUrl}/tasks`);
+    return this.httpClient.get<Task[]>(`${this.apiUrl}/tasks`);
+  }
+
+  getActiveTaskList() : Observable<Task[]>{
+
+    return this.httpClient.get<Task[]>(`${this.apiUrl}/tasks?status=active`)
+  }
+
+  getCompletedTaskList() : Observable<Task[]>{
+
+    return this.httpClient.get<Task[]>(`${this.apiUrl}/tasks?status=completed`)
   }
 }

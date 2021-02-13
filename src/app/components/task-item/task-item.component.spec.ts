@@ -43,9 +43,8 @@ describe('TaskItemComponent', () => {
   }));
 
 
-  it('should create', (done) => {
+  it('should create', () => {
 
     expect(component).toBeTruthy();
-    done()
   });
 });

@@ -7,7 +7,7 @@
   </ul>
   <footer>
     <div>
-      <span>5 items left</span>
+      <span>{{(taskList$|async)?.length}} items left</span>
     </div>
     <div class="list-filter-buttons">
       <button>All</button>
