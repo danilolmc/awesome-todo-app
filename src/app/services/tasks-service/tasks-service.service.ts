@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { TaskList } from 'src/app/core/TaskList';
-import { Observable, from, of } from 'rxjs';
+import { Observable, from, of, Subscription } from 'rxjs';
 import { Task } from 'src/app/core/Task';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpResponse } from "@angular/common/http";
@@ -19,11 +19,11 @@ export class TasksService implements TaskList {
     status: "active"
   }]
 
-  addTaskEventEmitter : EventEmitter<Task> = new EventEmitter();
+  addTaskEventEmitter: EventEmitter<Task> = new EventEmitter();
 
-  updateTaskEventEmitter : EventEmitter<Task> = new EventEmitter();
+  updateTaskEventEmitter: EventEmitter<Task> = new EventEmitter();
 
-  deleteTaskEventEmitter : EventEmitter<Task> = new EventEmitter();
+  deleteTaskEventEmitter: EventEmitter<Task> = new EventEmitter();
 
   constructor(private httpClient: HttpClient) { }
 
@@ -42,24 +42,45 @@ export class TasksService implements TaskList {
     return this.httpClient.get<Task[]>(`${this.apiUrl}/tasks?status=completed`)
   }
 
-  addNewTask(task: Task){
+  addNewTask(task: Task) {
 
     this.httpClient.post<Task>(`${this.apiUrl}/tasks`, task).subscribe(someTask => !!someTask && this.addTaskEventEmitter.emit());
   }
 
   setTaskAsCompleted(id: number) {
 
-    this.httpClient.patch<Task>(`${this.apiUrl}/tasks/${id}`, {status :"completed"}).subscribe(task => !!task && this.updateTaskEventEmitter.emit());
+    this.httpClient.patch<Task>(`${this.apiUrl}/tasks/${id}`, { status: "completed" }).subscribe(task => !!task && this.updateTaskEventEmitter.emit());
   }
 
   unsetTaskAsCompleted(id: number) {
 
-    this.httpClient.patch<Task>(`${this.apiUrl}/tasks/${id}`, {status :"active"}).subscribe(task => !!task && this.updateTaskEventEmitter.emit());
+    this.httpClient.patch<Task>(`${this.apiUrl}/tasks/${id}`, { status: "active" }).subscribe(task => !!task && this.updateTaskEventEmitter.emit());
   }
 
-  deleteTask(id  : number) : Observable<any>{
+  deleteTask(id: number): Observable<any> {
 
     return this.httpClient.delete<Task>(`${this.apiUrl}/tasks/${id}`);
+  }
+
+  deleteCompleted(id_list : number[]) :  void{
+
+    let deleteOperation$ !:  Promise<Task>;
+
+    id_list.forEach(task_id => {
+
+      deleteOperation$ = this.httpClient.delete<Task>(`${this.apiUrl}/tasks/${task_id}`).toPromise();
+    })
+
+    deleteOperation$.then(op => {
+      this.addTaskEventEmitter.emit();
+      this.updateTaskEventEmitter.emit();
+      this.deleteTaskEventEmitter.emit();
+    })
+
+
+
+
+
   }
 
 }

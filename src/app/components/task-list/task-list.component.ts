@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Task } from 'src/app/core/Task';
 import { TasksService } from 'src/app/services/tasks-service/tasks-service.service';
+import { filter, map, flatMap, switchMap, toArray } from 'rxjs/operators';
 
 @Component({
   selector: 'task-list',
@@ -48,6 +49,20 @@ export class TaskListComponent implements OnInit {
   setActualList(listType: string) {
 
     this.actualListType = listType;
+  }
+
+  clearCompleted() {
+
+    this.taskService
+      .getCompletedTaskList()
+      .pipe(
+        switchMap(taskList => taskList),
+        map(task => {return task.id}),
+        toArray()
+        )
+      .subscribe(completedTasks => {
+        this.taskService.deleteCompleted(completedTasks)
+      });
   }
 
   eventEmitterListener(eventEmitter: EventEmitter<Task>) {

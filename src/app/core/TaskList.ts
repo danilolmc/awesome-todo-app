@@ -17,5 +17,8 @@ export abstract class TaskList{
 
   abstract deleteTask(id : number) : Observable<any>;
 
+  abstract deleteCompleted(id_list : number[]) : void;
+
+
 
 }
