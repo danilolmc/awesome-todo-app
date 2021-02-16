@@ -2,8 +2,12 @@
   margin-top: 30px;
   background: var(--background-container-color);
   border-radius: 5px;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 533px;
   box-shadow: 0 20px 60px -5px rgba(72, 75, 106,.2);
+  transition: all 1s ease;
+  padding-bottom: 60px;
 }
 
 .task-list footer {
@@ -14,6 +18,11 @@
   align-content: center;
   height: 60px;
   padding-right: 15px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: var(--background-container-color);
+
 }
 
 .task-list footer > div {
@@ -22,6 +31,16 @@
   justify-content: center;
   align-items: center;
 }
+
+.task-list::-webkit-scrollbar{
+  width: 4px;
+  background: #fff;
+}
+
+.task-list::-webkit-scrollbar-thumb{
+  background: linear-gradient(120deg,hsl(192, 100%, 67%),hsl(280, 87%, 65%));
+}
+
 
 footer > div,
 button {
@@ -39,10 +58,19 @@ button {
   transition: .5s ease;
 }
 
-.task-list footer div:nth-child(2) button {
+
+.task-list footer div:nth-child(2) label {
   font-size: 15px;
   font-weight: 600;
   color: var(--delete-task-font-color);
+}
+
+.task-list footer div:nth-child(2) input{
+  display: none;
+}
+
+.task-list footer div:nth-child(2) input:checked + span{
+  color: rgb(46, 133, 231);
 }
 
 .task-list footer div:nth-child(3) button {
@@ -50,7 +78,12 @@ button {
   color: var(--delete-task-font-color);
 }
 
-.task-list footer div:nth-child(2) button:hover {
+.task-list footer div:nth-child(2) span {
+  cursor: pointer;
+  transition: .5s ease;
+}
+
+.task-list footer div:nth-child(2) span:hover {
   color: rgb(46, 133, 231);
 }
 
@@ -59,7 +92,7 @@ button {
 }
 
 .hasNoTasks{
-  min-height:450px;
+  height: auto;
   display: grid;
   place-content: center;
   font-size: 20px;

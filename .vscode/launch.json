@@ -10,6 +10,37 @@
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:8080",
             "webRoot": "${workspaceFolder}"
+        },
+        {
+          "type": "node",
+          "request": "launch",
+          "name": "Jest All",
+          "program": "${workspaceFolder}/node_modules/@angular/cli/bin/ng",
+          "cwd": "${workspaceFolder}",
+          "args": [
+            "test",
+            "--testMatch=\"**/+(*.)+(spec|test).+(ts|js)?(x)\"",
+            "--runInBand"
+          ],
+          "console": "integratedTerminal",
+          "internalConsoleOptions": "neverOpen",
+          "disableOptimisticBPs": true,
+        },
+        {
+          "type": "node",
+          "request": "launch",
+          "name": "Jest Current File",
+          "program": "${workspaceFolder}/node_modules/@angular/cli/bin/ng",
+          "cwd": "${workspaceFolder}",
+          "args": [
+            "test",
+            "--testMatch=\"**/+(*.)+(spec|test).+(ts|js)?(x)\"",
+            "--testPathPattern=${fileBasenameNoExtension}",
+            "--runInBand",
+          ],
+          "console": "integratedTerminal",
+          "internalConsoleOptions": "neverOpen",
+          "disableOptimisticBPs": true,
         }
     ]
 }

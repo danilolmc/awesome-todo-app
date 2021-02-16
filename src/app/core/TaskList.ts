@@ -8,4 +8,6 @@ export abstract class TaskList{
   abstract getActiveTaskList() : Observable<Task[]>
 
   abstract getCompletedTaskList() : Observable<Task[]>
+
+  abstract addNewTask(task : Task) : Observable<Task>;
 }

@@ -10,8 +10,8 @@
       </span>
     </header>
 
-    <input-task></input-task>
-    <task-list></task-list>
+    <input-task (addedTask)="SyncListData()"></input-task>
+    <task-list #taskList></task-list>
 
   </section>
 

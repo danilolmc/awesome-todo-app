@@ -20,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     InputTaskModule,
     TaskListModule,
     CheckboxModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

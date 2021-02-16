@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Task } from 'src/app/core/Task';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 
@@ -18,6 +18,7 @@ export class TaskItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.task.status == 'completed' ? this.isSelected = true : false;
   }
 
   selectedData(event: boolean) {

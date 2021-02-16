@@ -4,11 +4,19 @@ import { InputTaskComponent } from './input-task.component';
 import { By } from '@angular/platform-browser';
 import { FormControl } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Task } from 'src/app/core/Task';
+import { TasksService } from 'src/app/services/tasks-service/tasks-service.service';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
 
+const newTask: Task = {
+  id: new Date().getMilliseconds(),
+  description: "my task",
+  status: 'active'
+}
 
 const serviceTask = {
 
-  addTask : jest.fn().mockReturnValue(undefined),
+  addNewTask: jest.fn().mockReturnValue(newTask),
 }
 
 
@@ -19,18 +27,22 @@ describe('InputSearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [InputTaskComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      declarations: [InputTaskComponent,CheckboxComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+      providers: [
+        { provide: TasksService, useValue: serviceTask }
+      ]
     })
-      .compileComponents();
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(InputTaskComponent);
+        component = fixture.componentInstance;
+        inputTask = component.inputTaskControl;
+        fixture.detectChanges();
+      })
+      .catch(() => { })
   });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(InputTaskComponent);
-    component = fixture.componentInstance;
-    inputTask = component.inputTaskControl;
-    fixture.detectChanges();
-  });
 
   test('should create', () => {
     expect(component).toBeTruthy();
@@ -74,7 +86,7 @@ describe('InputSearchComponent', () => {
 
     const addNewTask = jest.spyOn(component, 'addNewTask');
 
-    component.addNewTask();
+    component.addNewTask(keyDownEvent);
 
     const statusField = component.valitadeField();
 

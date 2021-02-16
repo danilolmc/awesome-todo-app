@@ -3,13 +3,14 @@ import { TaskList } from 'src/app/core/TaskList';
 import { Observable, from, of } from 'rxjs';
 import { Task } from 'src/app/core/Task';
 import { environment } from 'src/environments/environment';
-import { HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
+import { tap } from 'rxjs/operators';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class TasksService implements TaskList{
+export class TasksService implements TaskList {
 
   apiUrl = environment.apiFakeUrl;
 
@@ -19,20 +20,25 @@ export class TasksService implements TaskList{
     status: "active"
   }]
 
-  constructor(private httpClient :  HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
-  getTaskList() : Observable<Task[]> {
+  getTaskList(): Observable<Task[]> {
 
     return this.httpClient.get<Task[]>(`${this.apiUrl}/tasks`);
   }
 
-  getActiveTaskList() : Observable<Task[]>{
+  getActiveTaskList(): Observable<Task[]> {
 
     return this.httpClient.get<Task[]>(`${this.apiUrl}/tasks?status=active`)
   }
 
-  getCompletedTaskList() : Observable<Task[]>{
+  getCompletedTaskList(): Observable<Task[]> {
 
     return this.httpClient.get<Task[]>(`${this.apiUrl}/tasks?status=completed`)
+  }
+
+  addNewTask(task: Task): Observable<Task> {
+
+    return this.httpClient.post<Task>(`${this.apiUrl}/tasks`, task);
   }
 }

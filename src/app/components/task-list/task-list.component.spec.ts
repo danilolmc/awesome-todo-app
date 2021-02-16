@@ -5,6 +5,7 @@ import { TaskList } from 'src/app/core/TaskList';
 import { TasksService } from "../../services/tasks-service/tasks-service.service";
 import { TaskItemModule } from '../task-item/task-item.module';
 import { TaskListComponent } from './task-list.component';
+import { tap } from "rxjs/operators";
 
 
 
@@ -25,7 +26,7 @@ describe('TaskListComponent', () => {
     }
   ]
 
-  const taskService: TaskList = {
+  const taskService = {
 
     getTaskList: jest.fn().mockReturnValue(of(taskList)),
     getActiveTaskList: jest.fn().mockReturnValue(of(taskList.filter(task => task.status === 'active'))),
@@ -48,6 +49,8 @@ describe('TaskListComponent', () => {
         component = fixture.componentInstance;
         fixture.detectChanges();
       })
+      .catch(() => {})
+
   }));
 
 
@@ -55,27 +58,55 @@ describe('TaskListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeDefined();
+    component.ngOnInit();
+    expect(component.taskList$).toBeDefined()
   });
 
   test('should retrieve task list', () => {
 
-    taskService.getTaskList().subscribe(list => {
+    const spyGetTaskList = jest.spyOn(component, 'getTaskList');
 
-      expect(list.length).toEqual(2)
-    })
+    let list :  Task[] = [];
 
+    component.getTaskList();
+
+    component.taskList$.pipe(tap(completeList => list = completeList)).subscribe().unsubscribe()
+
+    expect(list).toHaveLength(2)
     expect(taskService.getTaskList).toBeCalled()
+    expect(spyGetTaskList).toBeCalledTimes(1);
 
   })
 
   test('should retrieve only active tasks list', () => {
 
-    taskService.getActiveTaskList().subscribe(list => {
+    const spyGetActiveTaskList = jest.spyOn(component, 'getActiveTaskList');
 
-      expect(list.length).toEqual(1)
-    })
+    let list :  Task[] = [];
 
+    component.getActiveTaskList();
+
+    component.taskList$.pipe(tap(activeList => list = activeList)).subscribe().unsubscribe()
+
+    expect(list).toHaveLength(1)
     expect(taskService.getActiveTaskList).toBeCalled()
+    expect(spyGetActiveTaskList).toBeCalledTimes(1)
+
+  })
+
+  test('should retrieve only completed tasks list', () => {
+
+    const spyGetCompletedTaskList = jest.spyOn(component, 'getCompletedTaskList');
+
+    let list : Task[] = [];
+
+    component.getCompletedTaskList();
+
+    component.taskList$.pipe(tap(completedList => list = completedList)).subscribe().unsubscribe()
+
+    expect(list).toHaveLength(1)
+    expect(taskService.getCompletedTaskList,).toBeCalled()
+    expect(spyGetCompletedTaskList).toBeCalledTimes(1)
 
   })
 });

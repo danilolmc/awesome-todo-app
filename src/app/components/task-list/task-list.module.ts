@@ -1,10 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaskListComponent } from './task-list.component';
+import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { TaskItemModule } from '../task-item/task-item.module';
-import { TasksService } from 'src/app/services/tasks-service/tasks-service.service';
-import {TaskList} from "../../core/TaskList"
-import { HttpClientModule } from '@angular/common/http';
+import { TaskListComponent } from './task-list.component';
 
 
 @NgModule({
@@ -13,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     TaskItemModule,
+    BrowserAnimationsModule
   ]
 })
 export class TaskListModule { }

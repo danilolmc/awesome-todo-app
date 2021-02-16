@@ -1,18 +1,31 @@
 <div class="task-list">
-  <ul>
-    <task-item *ngFor="let task of (taskList$|async)" [task]="task"></task-item>
-    <div *ngIf="!(taskList$|async)" class="hasNoTasks">
-      No Tasks
+  <ul >
+    <div>
+      <task-item  *ngFor="let task of (taskList$|async) as tasks" [task]="task"></task-item>
     </div>
+    <!-- <div *ngIf="!(taskList$|async)" class="hasNoTasks">
+      No Tasks
+    </div> -->
   </ul>
   <footer>
     <div>
       <span>{{(taskList$|async)?.length}} items left</span>
     </div>
     <div class="list-filter-buttons">
-      <button>All</button>
-      <button>Active</button>
-      <button>Completed</button>
+      <label for="All">
+        <input type="radio" id="All" name="listOption" (change)="getTaskList()" checked>
+        <span>All</span>
+      </label>
+
+      <label for="Active">
+        <input type="radio" id="Active" name="listOption" (change)="getActiveTaskList()">
+        <span>Active</span>
+      </label>
+
+      <label for="Completed">
+        <input type="radio" id="Completed" name="listOption" (change)="getCompletedTaskList()">
+        <span>Completed</span>
+      </label>
     </div>
     <div>
       <button>Clear Completed</button>
