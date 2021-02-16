@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
 @Component({
   selector: 'checkbox',
@@ -15,7 +15,6 @@ export class CheckboxComponent{
 
   constructor() { }
 
-
   emitStatusCheckbox(){
 
     this.selectTask.emit(this.isSelected);
@@ -24,6 +23,6 @@ export class CheckboxComponent{
   toggleCheckBox(){
 
     this.isSelected = !this.isSelected;
-
+    this.emitStatusCheckbox();
   }
 }

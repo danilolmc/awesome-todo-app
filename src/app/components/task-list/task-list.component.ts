@@ -1,5 +1,4 @@
-import { animate, query, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Task } from 'src/app/core/Task';
 import { TasksService } from 'src/app/services/tasks-service/tasks-service.service';
@@ -23,27 +22,57 @@ export class TaskListComponent implements OnInit {
 
   taskList$!: Observable<Task[]>
 
+  actualListType = "All";
+
+  functionToExcute: Function = () => { }
+
   constructor(private taskService: TasksService) { }
 
   getTaskList() {
-
+    this.setActualList("All")
     this.taskList$ = this.taskService.getTaskList()
   }
 
   getActiveTaskList() {
 
+    this.setActualList("Active")
     this.taskList$ = this.taskService.getActiveTaskList()
   }
 
   getCompletedTaskList() {
 
+    this.setActualList("Completed")
     this.taskList$ = this.taskService.getCompletedTaskList()
+  }
+
+  setActualList(listType: string) {
+
+    this.actualListType = listType;
+  }
+
+  eventEmitterListener(eventEmitter: EventEmitter<Task>) {
+
+    const getFunctions: any = {
+
+      All: this.getTaskList,
+      Active: this.getActiveTaskList,
+      Completed: this.getCompletedTaskList
+
+    }
+    eventEmitter
+      .subscribe(() => {
+        this.functionToExcute = getFunctions[this.actualListType]
+        this.functionToExcute();
+      });
+
   }
 
   ngOnInit(): void {
 
+    this.eventEmitterListener(this.taskService.addTaskEventEmitter);
+    this.eventEmitterListener(this.taskService.updateTaskEventEmitter);
+    this.eventEmitterListener(this.taskService.deleteTaskEventEmitter);
+
     this.getTaskList();
   }
-
-
 }

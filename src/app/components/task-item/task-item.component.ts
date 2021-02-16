@@ -1,6 +1,8 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Task } from 'src/app/core/Task';
+import { TasksService } from 'src/app/services/tasks-service/tasks-service.service';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'task-item',
@@ -15,21 +17,40 @@ export class TaskItemComponent implements OnInit {
 
   @ViewChild('checkbox') checkbox !: CheckboxComponent;
 
-  constructor() { }
+  constructor(private taskService: TasksService) { }
 
   ngOnInit(): void {
     this.task.status == 'completed' ? this.isSelected = true : false;
   }
 
-  selectedData(event: boolean) {
+  selectedData(statusCheckbox: boolean) {
 
-    this.isSelected = event;
+    this.isSelected = statusCheckbox;
+    this.toggleCompleteTask()
   }
 
-  selectTaskByClickingAtItName() {
 
-    this.checkbox.toggleCheckBox();
-    this.isSelected = this.checkbox.isSelected;
+  CompleteTaskByClickingAtItName(event: Event) {
+
+    this.isSelected = !this.isSelected;
+    this.toggleCompleteTask();
+  }
+
+  toggleCompleteTask() {
+    setTimeout(() => {
+      this.isSelected
+        ? this.taskService.setTaskAsCompleted(this.task.id)
+        : this.taskService.unsetTaskAsCompleted(this.task.id)
+    }, 500);
+  }
+
+  deleteTask() {
+
+    this.taskService
+      .deleteTask(this.task.id)
+      .subscribe(() => this.taskService.deleteTaskEventEmitter.emit())
+      .unsubscribe();
+
   }
 
 }

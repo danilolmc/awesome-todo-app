@@ -18,7 +18,7 @@ export class AppComponent implements OnInit{
   }
 
   SyncListData(){
-    this.tasklist.ngOnInit()
+    // this.tasklist.ngOnInit()
   }
 
 }

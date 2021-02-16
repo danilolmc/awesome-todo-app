@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { TaskList } from 'src/app/core/TaskList';
 import { Observable, from, of } from 'rxjs';
 import { Task } from 'src/app/core/Task';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from "@angular/common/http";
-import { tap } from 'rxjs/operators';
+import { HttpClient, HttpResponse } from "@angular/common/http";
 
 
 @Injectable({
@@ -19,6 +18,12 @@ export class TasksService implements TaskList {
     description: "10 minutes meditation",
     status: "active"
   }]
+
+  addTaskEventEmitter : EventEmitter<Task> = new EventEmitter();
+
+  updateTaskEventEmitter : EventEmitter<Task> = new EventEmitter();
+
+  deleteTaskEventEmitter : EventEmitter<Task> = new EventEmitter();
 
   constructor(private httpClient: HttpClient) { }
 
@@ -37,8 +42,24 @@ export class TasksService implements TaskList {
     return this.httpClient.get<Task[]>(`${this.apiUrl}/tasks?status=completed`)
   }
 
-  addNewTask(task: Task): Observable<Task> {
+  addNewTask(task: Task){
 
-    return this.httpClient.post<Task>(`${this.apiUrl}/tasks`, task);
+    this.httpClient.post<Task>(`${this.apiUrl}/tasks`, task).subscribe(someTask => !!someTask && this.addTaskEventEmitter.emit());
   }
+
+  setTaskAsCompleted(id: number) {
+
+    this.httpClient.patch<Task>(`${this.apiUrl}/tasks/${id}`, {status :"completed"}).subscribe(task => !!task && this.updateTaskEventEmitter.emit());
+  }
+
+  unsetTaskAsCompleted(id: number) {
+
+    this.httpClient.patch<Task>(`${this.apiUrl}/tasks/${id}`, {status :"active"}).subscribe(task => !!task && this.updateTaskEventEmitter.emit());
+  }
+
+  deleteTask(id  : number) : Observable<any>{
+
+    return this.httpClient.delete<Task>(`${this.apiUrl}/tasks/${id}`);
+  }
+
 }

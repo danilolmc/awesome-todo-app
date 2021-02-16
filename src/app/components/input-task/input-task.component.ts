@@ -22,7 +22,7 @@ export class InputTaskComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addNewTask(event: KeyboardEvent) {
+  addNewTask(event: Event) {
 
     const newTask: Task = {
       id: new Date().getMilliseconds(),
@@ -30,18 +30,10 @@ export class InputTaskComponent implements OnInit {
       status: this.checkbox.isSelected ? 'completed' : 'active'
     };
 
-    const readyToAdd = this.valitadeField() && event.key == 'Enter';
+    const readyToAdd = this.valitadeField() && (event as KeyboardEvent).key == 'Enter';
 
 
-    readyToAdd
-      && this.taskService
-        .addNewTask(newTask)
-        .subscribe(task => {
-          setTimeout(() => {
-            !!task && this.addedTask.emit()
-          }, 500)
-        });
-
+    readyToAdd && this.taskService.addNewTask(newTask)
 
   }
 

@@ -9,5 +9,13 @@ export abstract class TaskList{
 
   abstract getCompletedTaskList() : Observable<Task[]>
 
-  abstract addNewTask(task : Task) : Observable<Task>;
+  abstract addNewTask(task : Task) : void;
+
+  abstract setTaskAsCompleted(id : number) : void;
+
+  abstract unsetTaskAsCompleted(id : number) : void;
+
+  abstract deleteTask(id : number) : Observable<any>;
+
+
 }

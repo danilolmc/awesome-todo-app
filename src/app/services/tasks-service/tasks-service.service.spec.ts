@@ -2,7 +2,7 @@ import { HttpClientTestingModule, HttpTestingController } from "@angular/common/
 import { TestBed } from '@angular/core/testing';
 import { TasksService } from './tasks-service.service';
 import { Task } from 'src/app/core/Task';
-import { HttpParams } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
 
 
 const taskList = [
@@ -45,7 +45,7 @@ describe('TasksServiceService', () => {
 
     const spyGetTaskList = jest.spyOn(service, 'getTaskList');
 
-    service.getTaskList().subscribe(list => {
+    const subscription = service.getTaskList().subscribe(list => {
       expect(list).toEqual(taskList);
     })
 
@@ -57,13 +57,15 @@ describe('TasksServiceService', () => {
     req.flush(taskList);
 
     httpMock.verify();
+
+    subscription.unsubscribe();
   })
 
   test('should retrive active task list', () => {
 
     const spyGetActiveTaskList = jest.spyOn(service, 'getActiveTaskList');
 
-    service.getActiveTaskList().subscribe(list => {
+    const subscritpion = service.getActiveTaskList().subscribe(list => {
       expect(list).toEqual(taskList);
     })
 
@@ -75,13 +77,15 @@ describe('TasksServiceService', () => {
     req.flush(taskList);
 
     httpMock.verify();
+
+    subscritpion.unsubscribe();
   })
 
   test('should retrive completed task list', () => {
 
     const spyGetCompletedTaskList = jest.spyOn(service, 'getCompletedTaskList');
 
-    service.getCompletedTaskList().subscribe(list => {
+    const subscription = service.getCompletedTaskList().subscribe(list => {
       expect(list).toEqual(taskList[1]);
     })
 
@@ -93,6 +97,8 @@ describe('TasksServiceService', () => {
     req.flush(taskList[1]);
 
     httpMock.verify();
+
+    subscription.unsubscribe();
   })
 
   test('should add a newTask', () => {
@@ -105,9 +111,9 @@ describe('TasksServiceService', () => {
       status: 'active'
     }
 
-    service.addNewTask(task).subscribe()
+    service.addNewTask(task);
 
-    const req = httpMock.expectOne({url:`${service.apiUrl}/tasks`, method: 'POST'})
+    const req = httpMock.expectOne({ url: `${service.apiUrl}/tasks`, method: 'POST' })
 
     expect(req.request.method).toBe('POST');
     expect(spyAddNewTask).toBeCalledTimes(1)
@@ -116,6 +122,58 @@ describe('TasksServiceService', () => {
 
     httpMock.verify();
 
+  })
+
+  it('shoud set task as completed', () => {
+
+    const spysetTaskAsCompleted = jest.spyOn(service, 'setTaskAsCompleted');
+
+    service.setTaskAsCompleted(2);
+
+    const req = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${2}`, method: 'PATCH' })
+
+    expect(req.request.method).toBe('PATCH');
+    expect(spysetTaskAsCompleted).toBeCalledTimes(1);
+    expect(spysetTaskAsCompleted).toBeCalledWith(2)
+
+    req.flush(2)
+    httpMock.verify();
+
+  })
+
+  it('shoud unset task as active', () => {
+
+    const spyunsetsetTaskAsCompleted = jest.spyOn(service, 'setTaskAsCompleted');
+
+    service.setTaskAsCompleted(2);
+
+    const req = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${2}`, method: 'PATCH' })
+
+    expect(req.request.method).toBe('PATCH');
+    expect(spyunsetsetTaskAsCompleted).toBeCalledTimes(1);
+    expect(spyunsetsetTaskAsCompleted).toBeCalledWith(2)
+
+    req.flush(2)
+    httpMock.verify();
+
+  })
+
+  test('shoud delete a task', () => {
+
+    const spySetAsCompleted = jest.spyOn(service, 'deleteTask');
+
+    const subscription = service.deleteTask(2).subscribe();
+
+    const req = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${2}`, method: 'DELETE' })
+
+    expect(req.request.method).toBe('DELETE');
+    expect(spySetAsCompleted).toBeCalledTimes(1);
+    expect(spySetAsCompleted).toBeCalledWith(2)
+
+    req.flush(2)
+    httpMock.verify();
+
+    subscription.unsubscribe();
 
   })
 });
