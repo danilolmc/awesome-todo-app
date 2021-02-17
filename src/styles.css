@@ -8,4 +8,5 @@
   padding: 0;
   margin: 0;
   font-family: 'Josefin Sans';
+  transition: background-color .5s ease, box-shadow .5s ease;
 }

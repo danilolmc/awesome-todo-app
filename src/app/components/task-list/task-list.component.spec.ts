@@ -6,6 +6,7 @@ import { TasksService } from "../../services/tasks-service/tasks-service.service
 import { TaskItemModule } from '../task-item/task-item.module';
 import { TaskListComponent } from './task-list.component';
 import { tap } from "rxjs/operators";
+import { EventEmitter } from '@angular/core';
 
 
 
@@ -30,7 +31,9 @@ describe('TaskListComponent', () => {
 
     getTaskList: jest.fn().mockReturnValue(of(taskList)),
     getActiveTaskList: jest.fn().mockReturnValue(of(taskList.filter(task => task.status === 'active'))),
-    getCompletedTaskList: jest.fn().mockReturnValue(of(taskList.filter(task => task.status === 'completed')))
+    getCompletedTaskList: jest.fn().mockReturnValue(of(taskList.filter(task => task.status === 'completed'))),
+    deleteCompleted: jest.fn((tasks) => tasks).mockReturnValue(new EventEmitter<boolean>()),
+    eventEmitter: jest.fn().mockReturnValue({})
   }
 
   beforeEach(waitForAsync(() => {
@@ -57,9 +60,9 @@ describe('TaskListComponent', () => {
   beforeEach(() => { })
 
   it('should create', () => {
+
     expect(component).toBeDefined();
-    // component.ngOnInit();
-    // expect(component.taskList$).toBeDefined()
+
   });
 
   test('should retrieve task list', () => {
@@ -70,7 +73,7 @@ describe('TaskListComponent', () => {
 
     component.getTaskList();
 
-    component.taskList$.pipe(tap(completeList => list = completeList)).subscribe().unsubscribe()
+    list = component.taskList;
 
     expect(list).toHaveLength(2)
     expect(taskService.getTaskList).toBeCalled()
@@ -86,7 +89,7 @@ describe('TaskListComponent', () => {
 
     component.getActiveTaskList();
 
-    component.taskList$.pipe(tap(activeList => list = activeList)).subscribe().unsubscribe()
+    list = component.taskList;
 
     expect(list).toHaveLength(1)
     expect(taskService.getActiveTaskList).toBeCalled()
@@ -102,11 +105,27 @@ describe('TaskListComponent', () => {
 
     component.getCompletedTaskList();
 
-    component.taskList$.pipe(tap(completedList => list = completedList)).subscribe().unsubscribe()
+    list = component.taskList;
 
     expect(list).toHaveLength(1)
     expect(taskService.getCompletedTaskList,).toBeCalled()
     expect(spyGetCompletedTaskList).toBeCalledTimes(1)
 
   })
+
+  test('should clear items completed', () => {
+
+    const spyclearCompleted =  jest.spyOn(component, 'clearCompleted');
+
+    component.clearCompleted();
+
+    taskService.deleteCompleted([1,2,3]);
+
+    expect(spyclearCompleted).toBeCalled();
+    expect(taskService.getCompletedTaskList).toBeCalled();
+    expect(taskService.deleteCompleted).toBeCalled();
+    expect(taskService.deleteCompleted).toBeCalledWith([1,2,3]);
+
+  })
+
 });

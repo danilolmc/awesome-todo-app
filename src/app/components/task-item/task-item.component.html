@@ -1,9 +1,9 @@
 <li >
-  <div (click)="CompleteTaskByClickingAtItName($event)">
-    <checkbox [taskId]="task.id.toString()" (selectTask)="selectedData($event)" #checkbox [isSelected]="isSelected"></checkbox>
+  <div (click)="CompleteTaskByClickingAtItName()">
+    <checkbox [taskId]="task.id.toString()" (selectTask)="selectedCheckbox($event)" #checkbox [isSelected]="isSelected"></checkbox>
     <label selectedEffecttask [statusTaskSelected]="isSelected">{{task.description}}</label>
   </div>
-  <button (click)="deleteTask()" class="deleteButton">
+  <button (click)="deleteTask(task.id)" class="deleteButton">
     <img src="../../../assets/icon-cross.svg" alt="delete task icon">
   </button>
 </li>

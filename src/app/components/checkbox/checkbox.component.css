@@ -28,19 +28,24 @@ input[type="checkbox"]{
   width: 100%;
   display: grid;
   place-content: center;
-  /* padding: 9%; */
-  background: #fff;
-  transition: .4s ease;
+  background: var(--task-list-background-color);
+
 }
 
 .check-icon-container img{
   width: 13px;
   height: 13px;
+  opacity: 0;
 }
 
 
 input[type="checkbox"]:checked + .check-icon-container{
   background: linear-gradient(120deg,hsl(192, 100%, 67%),hsl(280, 87%, 65%));
+}
+
+
+input[type="checkbox"]:checked + .check-icon-container img{
+  opacity: 1;
 }
 
 input[type="checkbox"]:checked + .check-icon-container span{

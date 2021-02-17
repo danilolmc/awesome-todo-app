@@ -141,17 +141,17 @@ describe('TasksServiceService', () => {
 
   })
 
-  it('shoud unset task as active', () => {
+  it('shoud unset task as completed', () => {
 
-    const spyunsetsetTaskAsCompleted = jest.spyOn(service, 'setTaskAsCompleted');
+    const spyunsetTaskAsCompleted = jest.spyOn(service, 'unsetTaskAsCompleted');
 
-    service.setTaskAsCompleted(2);
+    service.unsetTaskAsCompleted(2);
 
     const req = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${2}`, method: 'PATCH' })
 
     expect(req.request.method).toBe('PATCH');
-    expect(spyunsetsetTaskAsCompleted).toBeCalledTimes(1);
-    expect(spyunsetsetTaskAsCompleted).toBeCalledWith(2)
+    expect(spyunsetTaskAsCompleted).toBeCalledTimes(1);
+    expect(spyunsetTaskAsCompleted).toBeCalledWith(2)
 
     req.flush(2)
     httpMock.verify();
@@ -175,5 +175,27 @@ describe('TasksServiceService', () => {
 
     subscription.unsubscribe();
 
+  })
+
+  test('shoud delete completed tasks', () => {
+
+    const spyDeleteCompletedTasks = jest.spyOn(service, 'deleteCompleted');
+
+    service.deleteCompleted([1,2,3]);
+
+    const reqA = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${1}`, method: 'DELETE' })
+    const reqB = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${2}`, method: 'DELETE' })
+    const reqC = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${3}`, method: 'DELETE' })
+
+    expect(reqA.request.method).toBe('DELETE');
+    expect(reqB.request.method).toBe('DELETE');
+    expect(reqC.request.method).toBe('DELETE');
+
+
+    expect(spyDeleteCompletedTasks).toBeCalledTimes(1);
+    expect(spyDeleteCompletedTasks).toBeCalledWith([1,2,3])
+
+    reqA.flush([1,2,3])
+    httpMock.verify();
   })
 });

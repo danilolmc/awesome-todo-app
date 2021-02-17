@@ -23,33 +23,36 @@ export class TaskItemComponent implements OnInit {
     this.task.status == 'completed' ? this.isSelected = true : false;
   }
 
-  selectedData(statusCheckbox: boolean) {
+  selectedCheckbox(statusCheckbox: boolean) {
 
     this.isSelected = statusCheckbox;
     this.toggleCompleteTask()
   }
 
-
-  CompleteTaskByClickingAtItName(event: Event) {
+  CompleteTaskByClickingAtItName() {
 
     this.isSelected = !this.isSelected;
     this.toggleCompleteTask();
   }
 
   toggleCompleteTask() {
-    setTimeout(() => {
-      this.isSelected
-        ? this.taskService.setTaskAsCompleted(this.task.id)
-        : this.taskService.unsetTaskAsCompleted(this.task.id)
-    }, 500);
+
+    this.isSelected
+      ? this.taskService.setTaskAsCompleted(this.task.id)
+      : this.taskService.unsetTaskAsCompleted(this.task.id)
   }
 
-  deleteTask() {
+  deleteTask(id: number) {
 
-    this.taskService
-      .deleteTask(this.task.id)
-      .subscribe(() => this.taskService.deleteTaskEventEmitter.emit())
-      .unsubscribe();
+    const subscription = this.taskService
+      .deleteTask(id)
+      .subscribe(() => {
+        this.taskService.deleteTaskEventEmitter.emit()
+      })
+
+    setTimeout(() => {
+      subscription.unsubscribe()
+    }, 500)
 
   }
 

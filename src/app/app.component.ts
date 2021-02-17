@@ -1,24 +1,25 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { TaskListComponent } from './components/task-list/task-list.component';
+import { ThemeService } from './services/theme/theme.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
-  title = 'awesome-todo-app';
+export class AppComponent implements OnInit {
 
-  @ViewChild('taskList') tasklist !: TaskListComponent;
+  actualTheme = 'lightTheme'
 
-  constructor(){}
+  constructor(private themeService: ThemeService) { }
 
-  ngOnInit(){
+  ngOnInit() {
 
+    // this.themeService.activatedTheme.subscribe(actTheme => this.actualTheme = actTheme)
   }
 
-  SyncListData(){
-    // this.tasklist.ngOnInit()
+  changeTheme() {
+    this.themeService.setTheme();
+    this.actualTheme = this.themeService.activatedTheme.value;
   }
 
 }

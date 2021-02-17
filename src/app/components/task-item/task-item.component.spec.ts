@@ -42,7 +42,11 @@ const taskService = {
 
   getTaskList: jest.fn().mockReturnValue(of(taskList)),
   getActiveTaskList: jest.fn().mockReturnValue(of(taskList.filter(task => task.status === 'active'))),
-  getCompletedTaskList: jest.fn().mockReturnValue(of(taskList.filter(task => task.status === 'completed')))
+  getCompletedTaskList: jest.fn().mockReturnValue(of(taskList.filter(task => task.status === 'completed'))),
+  deleteTask: jest.fn(id => id).mockReturnValue(of({})),
+  deleteTaskEventEmitter: { emit: jest.fn().mockReturnValue(undefined)}
+
+
 }
 
 
@@ -62,6 +66,7 @@ describe('TaskItemComponent', () => {
       .then((data) => {
         fixture = TestBed.createComponent(TaskItemComponent);
         component = fixture.componentInstance;
+        component.task = taskList[0];
         fixture.detectChanges();
       })
       .catch(() => {})
@@ -72,4 +77,16 @@ describe('TaskItemComponent', () => {
 
     expect(component).toBeTruthy();
   });
+
+  test('should delete a task', () => {
+
+    const spyDelete = jest.spyOn(component, 'deleteTask');
+
+    component.deleteTask(2);
+
+    expect(spyDelete).toBeCalledTimes(1);
+    expect(taskService.deleteTask).toBeCalledWith(2);
+    expect(taskService.deleteTaskEventEmitter.emit).toBeCalledTimes(1);
+
+  })
 });

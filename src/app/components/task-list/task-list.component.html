@@ -1,15 +1,15 @@
 <div class="task-list">
-  <ul >
-    <div>
-      <task-item  *ngFor="let task of (taskList$|async) as tasks" [task]="task"></task-item>
+  <ul>
+    <div class="list" cdkDropList (cdkDropListDropped)="drop($event)">
+      <task-item class="item-list-container"  *ngFor="let task of taskList" [task]="task" cdkDrag></task-item>
     </div>
-    <!-- <div *ngIf="!(taskList$|async)" class="hasNoTasks">
+    <div *ngIf="taskList?.length == 0" class="hasNoTasks">
       No Tasks
-    </div> -->
+    </div>
   </ul>
   <footer>
     <div>
-      <span>{{(taskList$|async)?.length}} items left</span>
+      <span>{{taskList?.length}} items left</span>
     </div>
     <div class="list-filter-buttons">
       <label for="All">

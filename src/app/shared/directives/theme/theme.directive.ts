@@ -15,7 +15,10 @@ export class ThemeDirective implements OnInit {
 
   ngOnInit() {
 
-    this.updateTheme(this.themeService.getTheme())
+    this.themeService.activatedTheme.subscribe(() => {
+
+      this.updateTheme(this.themeService.getTheme())
+    })
 
   }
 

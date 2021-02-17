@@ -5,13 +5,13 @@
     <header>
       <h1>TODO</h1>
 
-      <span>
-        <img src="../assets/icon-moon.svg" alt="icon moon">
+      <span (click)="changeTheme()">
+        <img [src]="actualTheme == 'lightTheme' ? '../assets/icon-moon.svg' : '../assets/icon-sun.svg'" alt="icon moon">
       </span>
     </header>
 
-    <input-task (addedTask)="SyncListData()"></input-task>
-    <task-list #taskList></task-list>
+    <input-task></input-task>
+    <task-list></task-list>
 
   </section>
 

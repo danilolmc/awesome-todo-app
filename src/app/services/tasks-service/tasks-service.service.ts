@@ -76,11 +76,5 @@ export class TasksService implements TaskList {
       this.updateTaskEventEmitter.emit();
       this.deleteTaskEventEmitter.emit();
     })
-
-
-
-
-
   }
-
 }

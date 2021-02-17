@@ -88,11 +88,42 @@ describe('InputSearchComponent', () => {
 
     component.addNewTask(keyDownEvent);
 
+    serviceTask.addNewTask();
+
     const statusField = component.valitadeField();
 
     expect(statusField).toBeTruthy();
 
     expect(addNewTask).toBeCalledTimes(1)
+
+    expect(serviceTask.addNewTask).toBeCalled()
+
+  })
+
+  test('should not be ready when input is invalid', () => {
+
+    const spyNotBeReady = jest.spyOn(component, 'getReadyToAdd');
+
+    component.inputTaskControl.setValue('');
+
+    let keyDownEvent = new KeyboardEvent('keydown', { 'key': 'enter' })
+
+    component.getReadyToAdd(keyDownEvent)
+
+    expect(spyNotBeReady).toReturnWith(false);
+
+  })
+  test('should not be ready when key is not enter', () => {
+
+    const spyNotBeReady = jest.spyOn(component, 'getReadyToAdd');
+
+    component.inputTaskControl.setValue('task');
+
+    let keyDownEvent = new KeyboardEvent('keydown', { 'key': 'b' })
+
+    component.getReadyToAdd(keyDownEvent)
+
+    expect(spyNotBeReady).toReturnWith(false);
 
   })
 

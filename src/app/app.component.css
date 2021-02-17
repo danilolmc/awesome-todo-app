@@ -23,7 +23,7 @@
   transform: translateY(-5vh);
   margin-top: 100px;
   width: 100%;
-  max-width: 600px;
+  max-width: 650px;
   z-index: 100;
 }
 
@@ -37,14 +37,14 @@
 .todo-list-container header h1{
   font-size: 45px;
   letter-spacing: 14px;
-  color: var(--background-container-color);
+  color: #fff;
 }
 
 .todo-list-container header img{
   transform: scale(1.15);
 }
 label{
-  color: var(--delete-task-font-color);
+  color: var(--drop-information-color);
   margin-top: 30px;
 }
 

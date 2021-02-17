@@ -30,10 +30,13 @@ export class InputTaskComponent implements OnInit {
       status: this.checkbox.isSelected ? 'completed' : 'active'
     };
 
-    const readyToAdd = this.valitadeField() && (event as KeyboardEvent).key == 'Enter';
+    this.getReadyToAdd(event) && this.taskService.addNewTask(newTask)
 
+  }
 
-    readyToAdd && this.taskService.addNewTask(newTask)
+  getReadyToAdd(event : Event){
+
+    return this.valitadeField() && (event as KeyboardEvent).key == 'Enter';
 
   }
 

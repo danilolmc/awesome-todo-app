@@ -1,8 +1,8 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, switchMap, toArray } from 'rxjs/operators';
 import { Task } from 'src/app/core/Task';
 import { TasksService } from 'src/app/services/tasks-service/tasks-service.service';
-import { filter, map, flatMap, switchMap, toArray } from 'rxjs/operators';
 
 @Component({
   selector: 'task-list',
@@ -21,7 +21,7 @@ import { filter, map, flatMap, switchMap, toArray } from 'rxjs/operators';
 })
 export class TaskListComponent implements OnInit {
 
-  taskList$!: Observable<Task[]>
+  taskList: Task[] = []
 
   actualListType = "All";
 
@@ -31,19 +31,25 @@ export class TaskListComponent implements OnInit {
 
   getTaskList() {
     this.setActualList("All")
-    this.taskList$ = this.taskService.getTaskList()
+    this.taskService.getTaskList().subscribe(allList => {
+      this.taskList = allList
+    })
   }
 
   getActiveTaskList() {
 
     this.setActualList("Active")
-    this.taskList$ = this.taskService.getActiveTaskList()
+    this.taskService.getActiveTaskList().subscribe(activeList => {
+      this.taskList = activeList
+    })
   }
 
   getCompletedTaskList() {
 
     this.setActualList("Completed")
-    this.taskList$ = this.taskService.getCompletedTaskList()
+    this.taskService.getCompletedTaskList().subscribe(completedList => {
+      this.taskList = completedList
+    })
   }
 
   setActualList(listType: string) {
@@ -57,9 +63,9 @@ export class TaskListComponent implements OnInit {
       .getCompletedTaskList()
       .pipe(
         switchMap(taskList => taskList),
-        map(task => {return task.id}),
+        map(task => { return task.id }),
         toArray()
-        )
+      )
       .subscribe(completedTasks => {
         this.taskService.deleteCompleted(completedTasks)
       });
@@ -79,7 +85,11 @@ export class TaskListComponent implements OnInit {
         this.functionToExcute = getFunctions[this.actualListType]
         this.functionToExcute();
       });
+  }
 
+  drop(event: CdkDragDrop<Task[]>) {
+
+    moveItemInArray(this.taskList, event.previousIndex, event.currentIndex);
   }
 
   ngOnInit(): void {

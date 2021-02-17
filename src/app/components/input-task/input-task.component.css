@@ -1,6 +1,6 @@
 .input-container{
   margin-top: 5vh;
-  background: var(--background-container-color);
+  background: var(--task-list-background-color);
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -14,4 +14,5 @@
   background: transparent;
   padding: 20px 0;
   font-size: 20px;
+  color: var(--tasks-font-color);
 }

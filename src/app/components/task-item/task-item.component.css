@@ -3,14 +3,15 @@ li{
   grid-template-columns: 95% 5%;
   align-items: center;
   padding: 23px 30px;
-  border-bottom: 1px solid var(--color-item-finished);
+  border-bottom: .5px solid var(--border-bottom-item-color);
+  background: var(--task-list-background-color);
 }
+
 
 li > div{
   display: flex;
   column-gap: 20px;
   align-items: center;
-  /* border:1px solid red; */
 }
 
 li:hover button{
@@ -18,17 +19,18 @@ li:hover button{
   opacity: 1;
 }
 
+
 label{
   width: 82%;
   font-size: 20px;
-  color: var(--delete-task-font-color);
-  transition: .5s ease;
+  color: var(--tasks-font-color);
+  font-weight: 300;
 }
 
 button.deleteButton{
   background: none;
   opacity: 0;
-  transition: .5s ease;
+  transform: scale(1.2);
 }
 
 .selectedTask{
