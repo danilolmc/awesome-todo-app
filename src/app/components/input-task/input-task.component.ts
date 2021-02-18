@@ -1,9 +1,8 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { TasksService } from 'src/app/services/tasks-service/tasks-service.service';
 import { Task } from 'src/app/core/Task';
+import { TasksService } from 'src/app/services/tasks-service/tasks-service.service';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
-import { Observable, of, fromEvent } from 'rxjs';
 
 @Component({
   selector: 'input-task',

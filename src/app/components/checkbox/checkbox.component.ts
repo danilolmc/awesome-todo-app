@@ -20,9 +20,4 @@ export class CheckboxComponent{
     this.isSelected = !this.isSelected;
     this.selectTask.emit(this.isSelected);
   }
-
-  // toggleCheckBox(){
-
-  //   this.emitStatusCheckbox();
-  // }
 }
