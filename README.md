@@ -12,13 +12,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 This project is using Json Server for simulate an API, fallow the steps bellow to install and run JSON server
 
-1 - Type on your terminal end press enter: `npm install -g json-server` 
+1 - Type on your terminal end press enter for installing Json server: `npm install -g json-server` 
 
-2 - Create a file with a Json structure in your project following the model into Task Interface inside core folder. 
+2 - Now, navigate to folder 'fakepi' and type: `json-server --watch db.json` 
 
-3 - Now, navigate to folder when you have created your file and type as follow: `json-server --watch myfilenamehere.json` 
-
-4 - All ready, now the server will be availabble at http://localhost:3000, have fun!! 
+3 - All ready, now the server will be available at http://localhost:3000, have fun!! 
 
 
 ## Development server
