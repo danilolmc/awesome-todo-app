@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { TasksService } from 'src/app/services/tasks-service/tasks-service.service';
 import { Task } from 'src/app/core/Task';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
+import { Observable, of, fromEvent } from 'rxjs';
 
 @Component({
   selector: 'input-task',
@@ -29,6 +30,7 @@ export class InputTaskComponent implements OnInit {
       description: this.inputTaskControl.value,
       status: this.checkbox.isSelected ? 'completed' : 'active'
     };
+
 
     this.getReadyToAdd(event) && this.taskService.addNewTask(newTask)
 

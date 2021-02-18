@@ -8,22 +8,36 @@
   padding: 2rem;
 }
 
-.container::before {
-  content: "";
-  display: block;
-  top: 0;
-  position: absolute;
+.bg-image-container div{
+
   height: 350px;
   width: 100%;
-  background: url("../assets/bg-desktop-light.jpg") no-repeat;
+  left: 0;
+  top:0;
+  position: absolute;
   background-size: cover;
+  transition: .5s ease;
+
+}
+
+
+.lightModeBackground{
+
+  background: url("../assets/bg-desktop-light.jpg") no-repeat;
+}
+
+
+.darkModeBackground{
+
+  background: url("../assets/bg-desktop-dark.jpg") no-repeat;
+
 }
 
 .todo-list-container{
   transform: translateY(-5vh);
   margin-top: 100px;
   width: 100%;
-  max-width: 650px;
+  max-width: 580px;
   z-index: 100;
 }
 

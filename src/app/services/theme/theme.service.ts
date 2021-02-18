@@ -9,7 +9,7 @@ import { ThemesOptions } from '../../themes/EnumThemes';
 })
 export class ThemeService {
 
-  localStorageTheme = localStorage.getItem('theme') || ThemesOptions.LIGHT_THEME.toString();
+  private localStorageTheme = localStorage.getItem('theme') || ThemesOptions.LIGHT_THEME.toString();
 
   activatedTheme = new BehaviorSubject<string>(this.localStorageTheme);
 
