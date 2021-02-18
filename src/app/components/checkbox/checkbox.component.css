@@ -49,3 +49,11 @@ input[type="checkbox"]:checked + .check-icon-container img{
 input[type="checkbox"]:checked + .check-icon-container span{
   background: transparent;
 }
+
+
+
+@media(max-width: 626px){
+  .checkbox-container{
+    transform: scale(.9);
+  }
+}

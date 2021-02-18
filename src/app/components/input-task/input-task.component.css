@@ -2,11 +2,11 @@
   margin-top: 5vh;
   background: var(--task-list-background-color);
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  column-gap: 25px;
   min-height: 7vh;
   border-radius: 5px;
-  padding: 0 18px;
+  padding: 0 35px;
 }
 
 .input-container input{
@@ -16,3 +16,16 @@
   font-size: 20px;
   color: var(--tasks-font-color);
 }
+
+.input-container input::placeholder{
+  color: var(--color-item-finished);
+}
+
+
+@media(max-width: 626px){
+  .checkbox-container{
+    transform: scale(.9);
+  }
+}
+
+

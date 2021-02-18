@@ -1,9 +1,9 @@
 <div class="task-list">
   <ul>
-    <div class="list" cdkDropList (cdkDropListDropped)="drop($event)">
+    <div class="list" *ngIf="taskList.length > 0" cdkDropList (cdkDropListDropped)="drop($event)">
       <task-item class="item-list-container"  *ngFor="let task of taskList" [task]="task" cdkDrag></task-item>
     </div>
-    <div *ngIf="taskList?.length == 0" class="hasNoTasks">
+    <div *ngIf="taskList.length == 0" class="hasNoTasks">
       No Tasks
     </div>
   </ul>

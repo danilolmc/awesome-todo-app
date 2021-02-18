@@ -1,4 +1,8 @@
-# AwesomeTodoApp
+# Front end Mentor TODO App challenge
+
+### ToDo list app built with Angular, Material Design with drag and drop, dark/light theme and Json Server
+
+![](./project-screenshot.jpg)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
 
