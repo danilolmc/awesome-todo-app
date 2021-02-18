@@ -14,7 +14,7 @@ This project is using Json Server for simulate an API, fallow the steps bellow t
 
 1 - Type on your terminal end press enter for installing Json server: `npm install -g json-server` 
 
-2 - Now, navigate to folder 'fakepi' and type: `json-server --watch db.json` 
+2 - Now, navigate to folder 'fakeapi' and type: `json-server --watch db.json` 
 
 3 - All ready, now the server will be available at http://localhost:3000, have fun!! 
 
