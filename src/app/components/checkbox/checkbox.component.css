@@ -1,6 +1,6 @@
 .checkbox-container{
-  width: 29px;
-  height: 29px;
+  width: 30px;
+  height: 30px;
 }
 
 input[type="checkbox"]{
@@ -29,7 +29,6 @@ input[type="checkbox"]{
   display: grid;
   place-content: center;
   background: var(--task-list-background-color);
-
 }
 
 .check-icon-container img{
@@ -37,7 +36,6 @@ input[type="checkbox"]{
   height: 13px;
   opacity: 0;
 }
-
 
 input[type="checkbox"]:checked + .check-icon-container{
   background: linear-gradient(120deg,hsl(192, 100%, 67%),hsl(280, 87%, 65%));

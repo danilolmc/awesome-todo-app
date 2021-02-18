@@ -54,29 +54,28 @@ describe('CheckboxComponent', () => {
     expect(checkbox_is_checked).toBeFalsy()
   })
 
-  test('should emit checkbox status', () => {
-
-    const spyEventEmmiter = jest.spyOn(component, 'emitStatusCheckbox')
-
-    component.emitStatusCheckbox();
-
-
-    component.selectTask.subscribe((isSelected : boolean) => {
-      expect(isSelected).toEqual(component.isSelected);
-    })
-
-    expect(spyEventEmmiter).toBeCalled();
-
-  })
-
   test('should toggle isSelected to true', () => {
 
     const spyToggleCheckbox = jest.spyOn(component, 'toggleCheckBox')
 
+    component.isSelected = false;
+
     component.toggleCheckBox();
 
     expect(spyToggleCheckbox).toBeCalledTimes(1);
+    expect(component.isSelected).toBeTruthy()
+  })
 
+  test('should toggle isSelected to false', () => {
+
+    const spyToggleCheckbox = jest.spyOn(component, 'toggleCheckBox')
+
+    component.isSelected = true;
+
+    component.toggleCheckBox();
+
+    expect(spyToggleCheckbox).toBeCalledTimes(1);
+    expect(component.isSelected).toBeFalsy()
   })
 
 

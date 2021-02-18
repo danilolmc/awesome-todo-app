@@ -38,6 +38,7 @@ describe('AppComponent', () => {
 
     fixture.detectChanges()
 
+    expect(localStorage.getItem('theme')).toBe('darkTheme');
     expect(component.actualTheme).toEqual('darkTheme');
     expect(spyChangeTheme).toBeCalledTimes(1)
 
@@ -56,7 +57,8 @@ describe('AppComponent', () => {
     fixture.detectChanges()
 
 
-    // expect(component.actualTheme).toEqual('lightTheme');
+    expect(localStorage.getItem('theme')).toBe('lightTheme');
+    expect(component.actualTheme).toEqual('lightTheme');
     expect(spyChangeTheme).toBeCalledTimes(1)
 
   })

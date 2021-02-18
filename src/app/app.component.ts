@@ -6,16 +6,11 @@ import { ThemeService } from './services/theme/theme.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent{
 
   actualTheme = 'lightTheme'
 
   constructor(private themeService: ThemeService) { }
-
-  ngOnInit() {
-
-    // this.themeService.activatedTheme.subscribe(actTheme => this.actualTheme = actTheme)
-  }
 
   changeTheme() {
     this.themeService.setTheme();

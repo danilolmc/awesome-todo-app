@@ -31,8 +31,7 @@ export class TaskItemComponent implements OnInit {
 
   CompleteTaskByClickingAtItName() {
 
-    this.isSelected = !this.isSelected;
-    this.toggleCompleteTask();
+    this.checkbox.toggleCheckBox()
   }
 
   toggleCompleteTask() {
@@ -44,15 +43,12 @@ export class TaskItemComponent implements OnInit {
 
   deleteTask(id: number) {
 
-    const subscription = this.taskService
+    return this.taskService
       .deleteTask(id)
-      .subscribe(() => {
+      .toPromise()
+      .then(() => {
         this.taskService.deleteTaskEventEmitter.emit()
       })
-
-    setTimeout(() => {
-      subscription.unsubscribe()
-    }, 500)
 
   }
 

@@ -5,15 +5,26 @@
   overflow-x: hidden;
   overflow-y: scroll;
   box-shadow: 0 20px 80px -5px var(--shadow-task-list) ;
-  padding-bottom: 60px;
-  max-height: 690px;
-  height: 590px;
+  max-height: 601px;
+  height: 601px;
 }
 
+.list{
+  padding-bottom: 65px;
+}
+
+.task-list ul{
+  height: 520px;
+}
 
 .item-list-container{
   cursor: move;
   display: block;
+}
+
+
+.cdk-drag-preview * >{
+  border: 1px solid red;
 }
 
 .cdk-drag-preview {
@@ -21,7 +32,7 @@
   box-shadow: 0 5px 10px -3px rgba(0, 238, 255, 0.1),
               0 5px 20px -3px rgba(255, 0, 212, 0.1);
   color: #fff;
-    background: linear-gradient(120deg,hsl(192, 100%, 67%),hsl(280, 87%, 65%));
+  background: linear-gradient(120deg,hsl(192, 100%, 67%),hsl(280, 87%, 65%));
 }
 
 

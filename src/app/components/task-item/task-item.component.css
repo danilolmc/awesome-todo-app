@@ -1,8 +1,9 @@
+
 li{
   display: grid;
   grid-template-columns: 95% 5%;
   align-items: center;
-  padding: 23px 30px;
+  padding: 23px 35px;
   border-bottom: .5px solid var(--border-bottom-item-color);
   background: var(--task-list-background-color);
 }
@@ -10,7 +11,7 @@ li{
 
 li > div{
   display: flex;
-  column-gap: 20px;
+  column-gap: 25px;
   align-items: center;
 }
 

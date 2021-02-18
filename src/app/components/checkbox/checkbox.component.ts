@@ -15,14 +15,14 @@ export class CheckboxComponent{
 
   constructor() { }
 
-  emitStatusCheckbox(){
-
-    this.selectTask.emit(this.isSelected);
-  }
-
   toggleCheckBox(){
 
     this.isSelected = !this.isSelected;
-    this.emitStatusCheckbox();
+    this.selectTask.emit(this.isSelected);
   }
+
+  // toggleCheckBox(){
+
+  //   this.emitStatusCheckbox();
+  // }
 }

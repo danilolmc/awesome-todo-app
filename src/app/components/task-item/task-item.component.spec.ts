@@ -1,29 +1,12 @@
-import { Component, Directive, NO_ERRORS_SCHEMA, ViewChild } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TaskItemComponent } from './task-item.component';
-import { CheckboxComponent } from '../checkbox/checkbox.component';
-import { ThemeDirective } from 'src/app/shared/directives/theme/theme.directive';
-import { CommonModule } from '@angular/common';
-import { Task } from 'src/app/core/Task';
-import { SelectTaskDirective } from 'src/app/shared/directives/select-task/select-task.directive';
-import { TasksService } from 'src/app/services/tasks-service/tasks-service.service';
 import { of } from 'rxjs';
+import { Task } from 'src/app/core/Task';
+import { TasksService } from 'src/app/services/tasks-service/tasks-service.service';
+import { SelectTaskDirective } from 'src/app/shared/directives/select-task/select-task.directive';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
+import { TaskItemComponent } from './task-item.component';
 
-
-
-@Component({ selector: 'checkbox', template: "<checkbox [taskId]='0' #checkbox></checkbox>" })
-class CheckboxMock { }
-
-
-@Directive({ selector: '[theme]' })
-class DirectiveMOck { }
-
-const task: Task =
-{
-  id: 0,
-  description: "MyTask",
-  status: 'active'
-}
 
 const taskList: Task[] = [
   {
@@ -44,7 +27,9 @@ const taskService = {
   getActiveTaskList: jest.fn().mockReturnValue(of(taskList.filter(task => task.status === 'active'))),
   getCompletedTaskList: jest.fn().mockReturnValue(of(taskList.filter(task => task.status === 'completed'))),
   deleteTask: jest.fn(id => id).mockReturnValue(of({})),
-  deleteTaskEventEmitter: { emit: jest.fn().mockReturnValue(undefined)}
+  deleteTaskEventEmitter: { emit: jest.fn().mockReturnValue(undefined) },
+  setTaskAsCompleted: jest.fn(id => id).mockReturnValue(of({})),
+  unsetTaskAsCompleted: jest.fn(id => id).mockReturnValue(of({}))
 
 
 }
@@ -59,7 +44,8 @@ describe('TaskItemComponent', () => {
       declarations: [TaskItemComponent, CheckboxComponent, SelectTaskDirective],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
-        {provide: TasksService, useValue: taskService}
+        { provide: TasksService, useValue: taskService },
+
       ]
     })
       .compileComponents()
@@ -69,24 +55,75 @@ describe('TaskItemComponent', () => {
         component.task = taskList[0];
         fixture.detectChanges();
       })
-      .catch(() => {})
+      .catch(() => { })
   }));
 
 
   it('should create', () => {
 
     expect(component).toBeTruthy();
+    expect(component.isSelected).toBeFalsy()
   });
 
-  test('should delete a task', () => {
+  test('should delete a task', async () => {
 
     const spyDelete = jest.spyOn(component, 'deleteTask');
 
-    component.deleteTask(2);
+    await component.deleteTask(2);
 
     expect(spyDelete).toBeCalledTimes(1);
     expect(taskService.deleteTask).toBeCalledWith(2);
     expect(taskService.deleteTaskEventEmitter.emit).toBeCalledTimes(1);
 
   })
+
+  test('should complete task when click at item', () => {
+
+    const spyCompleteTaskByClickingAtItName = jest.spyOn(component, 'CompleteTaskByClickingAtItName');
+
+    component.CompleteTaskByClickingAtItName();
+
+    expect(spyCompleteTaskByClickingAtItName).toBeCalledTimes(1);
+
+  })
+
+  test('should call setTaskAsCompleted when isSelect is true', () => {
+
+    const spytoggleCompleteTask = jest.spyOn(component, 'toggleCompleteTask');
+
+    component.isSelected = true;
+
+    component.toggleCompleteTask();
+
+    expect(spytoggleCompleteTask).toBeCalledTimes(1);
+    expect(taskService.setTaskAsCompleted).toBeCalled();
+
+  })
+
+  test('should call unsetTaskAsCompleted when isSelect is true', () => {
+
+    const spytoggleCompleteTask = jest.spyOn(component, 'toggleCompleteTask');
+
+    component.isSelected = false;
+
+    component.toggleCompleteTask();
+
+    expect(spytoggleCompleteTask).toBeCalledTimes(1);
+    expect(taskService.unsetTaskAsCompleted).toBeCalled();
+
+  })
+
+  test('should call selectedCheckbox at checkbox eventemitter', () => {
+
+    const spyselectedCheckbox = jest.spyOn(component, 'selectedCheckbox');
+
+    const spytoggleCompleteTask = jest.spyOn(component, 'toggleCompleteTask');
+
+    component.selectedCheckbox(true);
+
+    expect(component.isSelected).toBeTruthy();
+    expect(spytoggleCompleteTask).toBeCalled();
+    expect(spyselectedCheckbox).toBeCalledTimes(1);
+  })
+
 });
