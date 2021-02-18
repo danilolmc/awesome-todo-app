@@ -8,6 +8,19 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
 
+## JSON Server
+
+This project is using Json Server for simulate an API, fallow the steps bellow to install and run JSON server
+
+1 - Type on your terminal end press enter: `npm install -g json-server` 
+
+2 - Create a file with a Json structure in your project following the model into Task Interface inside core folder. 
+
+3 - Now, navigate to folder when you have created your file and type as follow: `json-server --watch myfilenamehere.json` 
+
+4 - All ready, now the server will be availabble at http://localhost:3000, have fun!! 
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
