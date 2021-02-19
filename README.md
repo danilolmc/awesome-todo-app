@@ -10,7 +10,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## JSON Server
 
-This project is using Json Server for simulate an API, fallow the steps bellow to install and run JSON server
+This project is using Json Server for simulate an API, follow the steps bellow to install and run JSON server
 
 1 - Type on your terminal end press enter for installing Json server: `npm install -g json-server` 
 
