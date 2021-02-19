@@ -1,12 +1,11 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { Task } from 'src/app/core/Task';
-import { TaskList } from 'src/app/core/TaskList';
 import { TasksService } from "../../services/tasks-service/tasks-service.service";
 import { TaskItemModule } from '../task-item/task-item.module';
 import { TaskListComponent } from './task-list.component';
-import { tap } from "rxjs/operators";
 import { EventEmitter } from '@angular/core';
+import { TaskList } from 'src/app/core/TaskList';
 
 
 
@@ -29,12 +28,22 @@ describe('TaskListComponent', () => {
 
   const taskService = {
 
+    addTaskEventEmitter : new EventEmitter<Task>(),
+    updateTaskEventEmitter : new EventEmitter<Task>(),
+    deleteTaskEventEmitter : new EventEmitter<Task>(),
+
     getTaskList: jest.fn().mockReturnValue(of(taskList)),
     getActiveTaskList: jest.fn().mockReturnValue(of(taskList.filter(task => task.status === 'active'))),
     getCompletedTaskList: jest.fn().mockReturnValue(of(taskList.filter(task => task.status === 'completed'))),
     deleteCompleted: jest.fn((tasks) => tasks).mockReturnValue(new EventEmitter<boolean>()),
-    eventEmitter: jest.fn().mockReturnValue({})
+    addNewTask : jest.fn(),
+    setTaskAsCompleted : jest.fn(),
+    unsetTaskAsCompleted : jest.fn(),
+    deleteTask: jest.fn(),
+    clearCompleted: jest.fn()
   }
+
+  const serv :  TaskList = taskService;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -42,7 +51,7 @@ describe('TaskListComponent', () => {
       imports: [TaskItemModule],
       providers: [
         {
-          provide: TasksService, useValue: taskService
+          provide: TasksService, useValue: serv,
         }
       ]
     })
@@ -60,6 +69,7 @@ describe('TaskListComponent', () => {
   beforeEach(() => { })
 
   it('should create', () => {
+
 
     expect(component).toBeDefined();
 
@@ -91,6 +101,7 @@ describe('TaskListComponent', () => {
 
     list = component.taskList;
 
+
     expect(list).toHaveLength(1)
     expect(taskService.getActiveTaskList).toBeCalled()
     expect(spyGetActiveTaskList).toBeCalledTimes(1)
@@ -98,6 +109,7 @@ describe('TaskListComponent', () => {
   })
 
   test('should retrieve only completed tasks list', () => {
+
 
     const spyGetCompletedTaskList = jest.spyOn(component, 'getCompletedTaskList');
 

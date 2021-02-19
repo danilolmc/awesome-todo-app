@@ -1,9 +1,10 @@
+import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { map, switchMap, toArray } from 'rxjs/operators';
 import { Task } from 'src/app/core/Task';
-import { TasksService } from 'src/app/services/tasks-service/tasks-service.service';
-import { trigger, transition, query, style, animate, stagger } from '@angular/animations';
+import { TaskList } from 'src/app/core/TaskList';
+import { TasksService } from 'src/app/services/tasks-service/tasks-service.service'
 
 @Component({
   selector: 'task-list',
@@ -14,13 +15,19 @@ import { trigger, transition, query, style, animate, stagger } from '@angular/an
 
       transition("void => *", [
         query(":enter", [
-          style({ opacity: 0, transform: 'translateY(50px)'}),
+          style({ opacity: 0, transform: 'translateY(50px)' }),
           stagger(100, [
-            animate('1.2s  ease', style({ opacity: 1, transform: 'translateY(0px)'  }))
+            animate('1.2s  ease', style({ opacity: 1, transform: 'translateY(0px)' }))
           ])
         ])
       ])
-    ])]
+    ])],
+  providers: [
+    {
+      provide: TaskList,
+      useClass: TasksService
+    }
+  ]
 })
 export class TaskListComponent implements OnInit {
 
@@ -30,11 +37,11 @@ export class TaskListComponent implements OnInit {
 
   functionToExcute: Function = () => { }
 
-  constructor(private taskService: TasksService) { }
+  constructor(private taskListService: TasksService) { }
 
   getTaskList() {
     this.setActualList("All")
-    this.taskService.getTaskList().subscribe(allList => {
+    this.taskListService.getTaskList().subscribe(allList => {
       this.taskList = allList
     })
   }
@@ -42,7 +49,7 @@ export class TaskListComponent implements OnInit {
   getActiveTaskList() {
 
     this.setActualList("Active")
-    this.taskService.getActiveTaskList().subscribe(activeList => {
+    this.taskListService.getActiveTaskList().subscribe(activeList => {
       this.taskList = activeList
     })
   }
@@ -50,7 +57,7 @@ export class TaskListComponent implements OnInit {
   getCompletedTaskList() {
 
     this.setActualList("Completed")
-    this.taskService.getCompletedTaskList().subscribe(completedList => {
+    this.taskListService.getCompletedTaskList().subscribe(completedList => {
       this.taskList = completedList
     })
   }
@@ -62,16 +69,16 @@ export class TaskListComponent implements OnInit {
 
   clearCompleted() {
 
-    this.taskService
-      .getCompletedTaskList()
-      .pipe(
-        switchMap(taskList => taskList),
-        map(task => { return task.id }),
-        toArray()
-      )
-      .subscribe(completedTasks => {
-        this.taskService.deleteCompleted(completedTasks)
-      });
+    this.taskListService
+    .getCompletedTaskList()
+    .pipe(
+      switchMap(taskList => taskList),
+      map(task => { return task.id }),
+      toArray()
+    )
+    .subscribe(completedTasks => {
+      this.taskListService.deleteCompleted(completedTasks)
+    });
   }
 
   eventEmitterListener(eventEmitter: EventEmitter<Task>) {
@@ -97,9 +104,9 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.eventEmitterListener(this.taskService.addTaskEventEmitter);
-    this.eventEmitterListener(this.taskService.updateTaskEventEmitter);
-    this.eventEmitterListener(this.taskService.deleteTaskEventEmitter);
+    this.eventEmitterListener(this.taskListService.addTaskEventEmitter);
+    this.eventEmitterListener(this.taskListService.updateTaskEventEmitter);
+    this.eventEmitterListener(this.taskListService.deleteTaskEventEmitter);
 
     this.getTaskList();
   }

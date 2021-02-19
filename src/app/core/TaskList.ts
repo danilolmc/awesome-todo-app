@@ -1,7 +1,14 @@
 import { Observable } from 'rxjs';
 import { Task } from 'src/app/core/Task';
+import { EventEmitter } from '@angular/core';
 
 export abstract class TaskList{
+
+  abstract addTaskEventEmitter : EventEmitter<Task>;
+
+  abstract updateTaskEventEmitter : EventEmitter<Task>;
+
+  abstract deleteTaskEventEmitter : EventEmitter<Task>;
 
   abstract getTaskList() : Observable<Task[]>
 
@@ -18,7 +25,5 @@ export abstract class TaskList{
   abstract deleteTask(id : number) : Observable<any>;
 
   abstract deleteCompleted(id_list : number[]) : void;
-
-
 
 }

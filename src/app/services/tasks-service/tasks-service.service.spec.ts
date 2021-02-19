@@ -198,4 +198,21 @@ describe('TasksServiceService', () => {
     reqA.flush([1,2,3])
     httpMock.verify();
   })
+
+  // test('shoud select and delete completed tasks', () => {
+
+  //   const spyClearCompleted = jest.spyOn(service, 'clearCompleted');
+
+  //   service.clearCompleted();
+
+  //   const reqA = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${1}`, method: 'DELETE' })
+
+  //   expect(reqA.request.method).toBe('DELETE');
+
+
+  //   expect(spyClearCompleted).toBeCalledTimes(1);
+
+  //   reqA.flush("")
+  //   httpMock.verify();
+  // })
 });

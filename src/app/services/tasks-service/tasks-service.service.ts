@@ -2,14 +2,15 @@ import { HttpClient } from "@angular/common/http";
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Task } from 'src/app/core/Task';
-import { TaskList } from 'src/app/core/TaskList';
 import { environment } from 'src/environments/environment';
+import { TaskList } from 'src/app/core/TaskList';
+import { switchMap, map, toArray, tap, flatMap } from 'rxjs/operators';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class TasksService implements TaskList {
+export class TasksService {
 
   apiUrl = environment.apiFakeUrl;
 
@@ -62,16 +63,16 @@ export class TasksService implements TaskList {
     return this.httpClient.delete<Task>(`${this.apiUrl}/tasks/${id}`);
   }
 
-  deleteCompleted(id_list : number[]) :  void{
+  deleteCompleted(id_list: number[]): void {
 
-    let deleteOperation$ !:  Promise<Task>;
+    let deleteOperation$ : Promise<Task>[] = [];
 
     id_list.forEach(task_id => {
 
-      deleteOperation$ = this.httpClient.delete<Task>(`${this.apiUrl}/tasks/${task_id}`).toPromise();
+      deleteOperation$ = [...deleteOperation$, this.httpClient.delete<Task>(`${this.apiUrl}/tasks/${task_id}`).toPromise()];
     })
 
-    deleteOperation$.then(op => {
+    Promise.all(deleteOperation$).then(op => {
       this.addTaskEventEmitter.emit();
       this.updateTaskEventEmitter.emit();
       this.deleteTaskEventEmitter.emit();
