@@ -3,21 +3,24 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { map, switchMap, toArray } from 'rxjs/operators';
 import { Task } from 'src/app/core/Task';
 import { TasksService } from 'src/app/services/tasks-service/tasks-service.service';
+import { trigger, transition, query, style, animate, stagger } from '@angular/animations';
 
 @Component({
   selector: 'task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css'],
-  // animations: [
-  //   trigger('taskListAnimation', [
+  animations: [
+    trigger('taskListAnimation', [
 
-  //     transition("* => *", [
-  //       query(":enter", [
-  //         style({ opacity: 0 }),
-  //         animate('1.2s  ease', style({ opacity: 1 }))
-  //       ])
-  //     ])
-  //   ])]
+      transition("void => *", [
+        query(":enter", [
+          style({ opacity: 0, transform: 'translateY(50px)'}),
+          stagger(100, [
+            animate('1.2s  ease', style({ opacity: 1, transform: 'translateY(0px)'  }))
+          ])
+        ])
+      ])
+    ])]
 })
 export class TaskListComponent implements OnInit {
 

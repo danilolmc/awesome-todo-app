@@ -2,12 +2,12 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Task } from 'src/app/core/Task';
 import { TasksService } from 'src/app/services/tasks-service/tasks-service.service';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
-import { HttpResponse } from '@angular/common/http';
+import { trigger, transition, style, query, animate } from '@angular/animations';
 
 @Component({
   selector: 'task-item',
   templateUrl: './task-item.component.html',
-  styleUrls: ['./task-item.component.css']
+  styleUrls: ['./task-item.component.css'],
 })
 export class TaskItemComponent implements OnInit {
 
