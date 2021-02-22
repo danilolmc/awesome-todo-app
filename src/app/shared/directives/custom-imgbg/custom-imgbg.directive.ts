@@ -1,4 +1,4 @@
-import { Directive, HostBinding, OnInit, OnChanges } from '@angular/core';
+import { Directive, HostBinding, OnInit } from '@angular/core';
 import { ThemeService } from 'src/app/services/theme/theme.service';
 import { ThemesOptions } from 'src/app/themes/EnumThemes';
 
@@ -15,8 +15,8 @@ export class CustomImgbgDirective implements OnInit {
 
     this.themeService.activatedTheme.subscribe(themeName => {
 
-      this.themeClass
-        = themeName == ThemesOptions.LIGHT_THEME
+      this.themeClass =
+          themeName == ThemesOptions.LIGHT_THEME
           ? 'lightModeBackground'
           : 'darkModeBackground'
     })

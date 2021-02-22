@@ -3,8 +3,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { map, switchMap, toArray } from 'rxjs/operators';
 import { Task } from 'src/app/core/Task';
-import { TaskList } from 'src/app/core/TaskList';
-import { TasksService } from 'src/app/services/tasks-service/tasks-service.service'
+import { TasksService } from 'src/app/services/tasks-service/tasks-service.service';
 
 @Component({
   selector: 'task-list',
@@ -17,17 +16,12 @@ import { TasksService } from 'src/app/services/tasks-service/tasks-service.servi
         query(":enter", [
           style({ opacity: 0, transform: 'translateY(50px)' }),
           stagger(100, [
-            animate('1.2s  ease', style({ opacity: 1, transform: 'translateY(0px)' }))
+            animate('.7s  ease', style({ opacity: 1, transform: 'translateY(0px)' }))
           ])
         ])
       ])
     ])],
-  providers: [
-    {
-      provide: TaskList,
-      useClass: TasksService
-    }
-  ]
+
 })
 export class TaskListComponent implements OnInit {
 

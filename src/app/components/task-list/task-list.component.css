@@ -108,7 +108,7 @@ button {
   display: none;
 }
 
-.task-list footer div:nth-child(2) input:checked + span{
+input:checked + span{
   color: rgb(46, 133, 231);
 }
 

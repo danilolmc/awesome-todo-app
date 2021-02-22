@@ -1,14 +1,9 @@
 {
   "tasks": [
     {
-      "id": 745,
-      "description": "fasd",
-      "status": "active"
-    },
-    {
-      "id": 254,
-      "description": "fasd",
-      "status": "active"
+      "id": 299,
+      "description": "Study CSS",
+      "status": "completed"
     }
   ]
 }

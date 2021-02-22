@@ -3,8 +3,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Task } from 'src/app/core/Task';
 import { environment } from 'src/environments/environment';
-import { TaskList } from 'src/app/core/TaskList';
-import { switchMap, map, toArray, tap, flatMap } from 'rxjs/operators';
+
 
 
 @Injectable({

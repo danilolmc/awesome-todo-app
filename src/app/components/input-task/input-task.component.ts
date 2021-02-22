@@ -22,7 +22,7 @@ export class InputTaskComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addNewTask(event: Event) {
+  addNewTask() {
 
     const newTask: Task = {
       id: new Date().getMilliseconds(),
@@ -31,13 +31,7 @@ export class InputTaskComponent implements OnInit {
     };
 
 
-    this.getReadyToAdd(event) && this.taskService.addNewTask(newTask)
-
-  }
-
-  getReadyToAdd(event : Event){
-
-    return this.valitadeField() && (event as KeyboardEvent).key == 'Enter';
+    this.valitadeField() && this.taskService.addNewTask(newTask)
 
   }
 

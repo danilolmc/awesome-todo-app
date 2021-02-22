@@ -1,4 +1,4 @@
 <div class="input-container">
   <checkbox [taskId]="'checkbox'" #checkbox></checkbox>
-  <input type="text" [formControl]="inputTaskControl" (keydown.enter)="addNewTask($event)" #input placeholder="Create a new task...">
+  <input type="text" [formControl]="inputTaskControl"  (keydown.enter)="addNewTask()"  placeholder="Create a new task..." class="input-task">
 </div>
