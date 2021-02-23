@@ -13,7 +13,7 @@
 
 <br/>
 
-### ToDo list app built with Angular, Material Design with drag and drop, dark/light theme and Json Server
+### ToDo list app built with Angular, Material Design with drag and drop, dark/light theme, Json Server and Unit Testing with Jest
 
 <br/>
 
