@@ -1,7 +1,7 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, OnInit } from '@angular/core';
-import { map, switchMap, toArray, catchError } from 'rxjs/operators';
+import { map, switchMap, toArray } from 'rxjs/operators';
 import { Task } from 'src/app/core/Task';
 import { TasksService } from 'src/app/services/tasks-service/tasks-service.service';
 
