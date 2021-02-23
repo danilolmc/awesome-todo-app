@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync, async } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { Task } from 'src/app/core/Task';
 import { TasksService } from "../../services/tasks-service/tasks-service.service";
@@ -20,7 +20,7 @@ describe('TaskListComponent', () => {
       status: 'active'
     },
     {
-      id: 0,
+      id: 1,
       description: "MyTask",
       status: 'completed'
     }
@@ -33,7 +33,7 @@ describe('TaskListComponent', () => {
     deleteTaskEventEmitter : new EventEmitter<Task>(),
 
     getTaskList: jest.fn().mockReturnValue(of(taskList)),
-    getActiveTaskList: jest.fn().mockReturnValue(of(taskList.filter(task => task.status === 'active'))),
+    getActiveTaskList: jest.fn().mockReturnValue(of(taskList.filter(task => task.status === 'active')[0])),
     getCompletedTaskList: jest.fn().mockReturnValue(of(taskList.filter(task => task.status === 'completed'))),
     deleteCompleted: jest.fn((tasks) => tasks).mockReturnValue(new EventEmitter<boolean>()),
     addNewTask : jest.fn(),
@@ -43,15 +43,13 @@ describe('TaskListComponent', () => {
     clearCompleted: jest.fn()
   }
 
-  const serv :  TaskList = taskService;
-
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [TaskListComponent],
       imports: [TaskItemModule],
       providers: [
         {
-          provide: TasksService, useValue: serv,
+          provide: TasksService, useValue: taskService,
         }
       ]
     })
@@ -75,7 +73,7 @@ describe('TaskListComponent', () => {
 
   });
 
-  test('should retrieve task list', () => {
+  test('should retrieve task list', async () => {
 
     const spyGetTaskList = jest.spyOn(component, 'getTaskList');
 
@@ -83,15 +81,19 @@ describe('TaskListComponent', () => {
 
     component.getTaskList();
 
+    await fixture.whenStable();
+
+    fixture.detectChanges();
+
     list = component.taskList;
 
-    expect(list).toHaveLength(2)
+    expect(list).toBe(taskList)
     expect(taskService.getTaskList).toBeCalled()
     expect(spyGetTaskList).toBeCalledTimes(1);
 
   })
 
-  test('should retrieve only active tasks list', () => {
+  test('should retrieve only active tasks list', async() => {
 
     const spyGetActiveTaskList = jest.spyOn(component, 'getActiveTaskList');
 
@@ -99,16 +101,17 @@ describe('TaskListComponent', () => {
 
     component.getActiveTaskList();
 
+    await fixture.whenStable();
+
     list = component.taskList;
 
-
-    expect(list).toHaveLength(1)
+    expect(list).toBe(taskList[0])
     expect(taskService.getActiveTaskList).toBeCalled()
     expect(spyGetActiveTaskList).toBeCalledTimes(1)
 
   })
 
-  test('should retrieve only completed tasks list', () => {
+  test('should retrieve only completed tasks list', async() => {
 
 
     const spyGetCompletedTaskList = jest.spyOn(component, 'getCompletedTaskList');
@@ -116,6 +119,8 @@ describe('TaskListComponent', () => {
     let list : Task[] = [];
 
     component.getCompletedTaskList();
+
+    await fixture.whenStable();
 
     list = component.taskList;
 
@@ -125,13 +130,15 @@ describe('TaskListComponent', () => {
 
   })
 
-  test('should clear items completed', () => {
+  test('should clear items completed', async() => {
 
     const spyclearCompleted =  jest.spyOn(component, 'clearCompleted');
 
     component.clearCompleted();
 
     taskService.deleteCompleted([1,2,3]);
+
+    await fixture.whenStable();
 
     expect(spyclearCompleted).toBeCalled();
     expect(taskService.getCompletedTaskList).toBeCalled();
