@@ -58,6 +58,8 @@ describe('InputSearchComponent', () => {
 
     inputDebugElement.triggerEventHandler('keydown.enter', {});
 
+    fixture.detectChanges()
+
     expect(statusValidField).toBeFalsy();
     expect(serviceTask.addNewTask).toBeCalledTimes(0);
 
@@ -70,6 +72,9 @@ describe('InputSearchComponent', () => {
     const addNewTask = jest.spyOn(component, 'addNewTask');
 
     inputDebugElement.triggerEventHandler('keydown.enter', {});
+
+
+    fixture.detectChanges()
 
     expect(addNewTask).toBeCalledTimes(1)
     expect(serviceTask.addNewTask).toBeCalledTimes(1)

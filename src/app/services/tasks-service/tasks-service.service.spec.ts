@@ -1,8 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
-import { TestBed } from '@angular/core/testing';
-import { TasksService } from './tasks-service.service';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Task } from 'src/app/core/Task';
-import { tap } from 'rxjs/operators';
+import { TasksService } from './tasks-service.service';
 
 
 const taskList = [
@@ -17,7 +16,6 @@ const taskList = [
     status: 'completed',
   }
 ]
-
 
 describe('TasksServiceService', () => {
 
@@ -41,7 +39,7 @@ describe('TasksServiceService', () => {
     expect(httpMock).toBeDefined();
   });
 
-  test('should retrive task list', () => {
+  test('should retrive task list', fakeAsync(() => {
 
     const spyGetTaskList = jest.spyOn(service, 'getTaskList');
 
@@ -51,6 +49,7 @@ describe('TasksServiceService', () => {
 
     const req = httpMock.expectOne(`${service.apiUrl}/tasks`)
 
+
     expect(req.request.method).toBe('GET');
     expect(spyGetTaskList).toBeCalledTimes(1);
 
@@ -59,9 +58,11 @@ describe('TasksServiceService', () => {
     httpMock.verify();
 
     subscription.unsubscribe();
-  })
 
-  test('should retrive active task list', () => {
+    tick();
+  }))
+
+  test('should retrive active task list', fakeAsync(() => {
 
     const spyGetActiveTaskList = jest.spyOn(service, 'getActiveTaskList');
 
@@ -71,6 +72,7 @@ describe('TasksServiceService', () => {
 
     const req = httpMock.expectOne(`${service.apiUrl}/tasks?status=active`)
 
+
     expect(req.request.method).toBe('GET');
     expect(spyGetActiveTaskList).toBeCalledTimes(1);
 
@@ -79,9 +81,11 @@ describe('TasksServiceService', () => {
     httpMock.verify();
 
     subscritpion.unsubscribe();
-  })
 
-  test('should retrive completed task list', () => {
+    tick();
+  }))
+
+  test('should retrive completed task list', fakeAsync(() => {
 
     const spyGetCompletedTaskList = jest.spyOn(service, 'getCompletedTaskList');
 
@@ -99,9 +103,11 @@ describe('TasksServiceService', () => {
     httpMock.verify();
 
     subscription.unsubscribe();
-  })
 
-  test('should add a newTask', () => {
+    tick();
+  }))
+
+  test('should add a newTask', fakeAsync(() => {
 
     const spyAddNewTask = jest.spyOn(service, 'addNewTask');
 
@@ -122,9 +128,11 @@ describe('TasksServiceService', () => {
 
     httpMock.verify();
 
-  })
+    tick()
 
-  it('shoud set task as completed', () => {
+  }))
+
+  it('shoud set task as completed', fakeAsync(() => {
 
     const spysetTaskAsCompleted = jest.spyOn(service, 'setTaskAsCompleted');
 
@@ -139,9 +147,11 @@ describe('TasksServiceService', () => {
     req.flush(2)
     httpMock.verify();
 
-  })
+    tick();
 
-  it('shoud unset task as completed', () => {
+  }))
+
+  it('shoud unset task as completed', fakeAsync(() => {
 
     const spyunsetTaskAsCompleted = jest.spyOn(service, 'unsetTaskAsCompleted');
 
@@ -156,9 +166,10 @@ describe('TasksServiceService', () => {
     req.flush(2)
     httpMock.verify();
 
-  })
+    tick();
+  }))
 
-  test('shoud delete a task', () => {
+  test('shoud delete a task', fakeAsync(() => {
 
     const spySetAsCompleted = jest.spyOn(service, 'deleteTask');
 
@@ -175,9 +186,11 @@ describe('TasksServiceService', () => {
 
     subscription.unsubscribe();
 
-  })
+    tick();
 
-  test('shoud delete completed tasks', () => {
+  }))
+
+  test('shoud delete completed tasks', fakeAsync(() => {
 
     const spyDeleteCompletedTasks = jest.spyOn(service, 'deleteCompleted');
 
@@ -197,22 +210,7 @@ describe('TasksServiceService', () => {
 
     reqA.flush([1,2,3])
     httpMock.verify();
-  })
 
-  // test('shoud select and delete completed tasks', () => {
-
-  //   const spyClearCompleted = jest.spyOn(service, 'clearCompleted');
-
-  //   service.clearCompleted();
-
-  //   const reqA = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${1}`, method: 'DELETE' })
-
-  //   expect(reqA.request.method).toBe('DELETE');
-
-
-  //   expect(spyClearCompleted).toBeCalledTimes(1);
-
-  //   reqA.flush("")
-  //   httpMock.verify();
-  // })
+    tick();
+  }))
 });
