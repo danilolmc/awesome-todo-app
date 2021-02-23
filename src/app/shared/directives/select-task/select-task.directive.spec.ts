@@ -1,14 +1,11 @@
-import { Component, ElementRef, Renderer2, NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SelectTaskDirective } from './select-task.directive';
 
 @Component({
     template: `<label selectedEffecttask [statusTaskSelected]="isSelected">{{task.description}}</label>`
 })
 class FakeListItemComponent{}
-
-class fakeElementRef extends ElementRef{}
-
 
 describe('SelectTaskDirective', () => {
 

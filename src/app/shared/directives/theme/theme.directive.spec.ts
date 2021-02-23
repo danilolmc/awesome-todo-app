@@ -8,25 +8,25 @@ import { By } from '@angular/platform-browser';
   selector: 'app-root',
   template: '<div class="container" theme></div>'
 })
-class AppCOmponentMock { }
+class AppComponentMock { }
 
 describe('ThemeDirective', () => {
 
 
-  let element: ComponentFixture<AppCOmponentMock>;
+  let element: ComponentFixture<AppComponentMock>;
   let elementoWithDirective: DebugElement;
 
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ThemeDirective, AppCOmponentMock],
+      declarations: [ThemeDirective, AppComponentMock],
       providers: [
         {
           provide: ComponentFixtureAutoDetect, useValue: true
         }
       ]
     });
-    element = TestBed.createComponent(AppCOmponentMock);
+    element = TestBed.createComponent(AppComponentMock);
     elementoWithDirective =  element.debugElement.query(By.directive(ThemeDirective));
   });
 

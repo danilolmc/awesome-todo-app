@@ -9,7 +9,7 @@ import { CheckboxComponent } from '../checkbox/checkbox.component';
   templateUrl: './input-task.component.html',
   styleUrls: ['./input-task.component.css']
 })
-export class InputTaskComponent implements OnInit {
+export class InputTaskComponent {
 
   inputTaskControl: FormControl = new FormControl('', Validators.required);
 
@@ -18,9 +18,6 @@ export class InputTaskComponent implements OnInit {
   @ViewChild("checkbox") checkbox !: CheckboxComponent;
 
   constructor(private taskService: TasksService) { }
-
-  ngOnInit(): void {
-  }
 
   addNewTask() {
 

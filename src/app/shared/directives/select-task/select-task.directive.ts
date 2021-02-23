@@ -1,4 +1,4 @@
-import { Directive, Renderer2, ElementRef, Input, OnInit, OnChanges, HostBinding } from '@angular/core';
+import { Directive, HostBinding, Input, OnChanges } from '@angular/core';
 
 @Directive({
   selector: '[selectedEffecttask]'

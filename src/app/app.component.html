@@ -1,6 +1,11 @@
 <div class="container" theme>
   <section class="bg-image-container">
-    <div CustomImgbg></div>
+    <div
+      [ngClass]="{
+        lightModeBackground: actualTheme == 'lightTheme',
+        darkModeBackground: actualTheme == 'darkTheme'
+      }"
+    ></div>
   </section>
 
   <section class="todo-list-container">
@@ -8,17 +13,20 @@
       <h1>TODO</h1>
 
       <span (click)="changeTheme()">
-        <img [src]="actualTheme == 'lightTheme'
-                   ? '../assets/icon-moon.svg'
-                   : '../assets/icon-sun.svg'" alt="icon moon">
+        <img
+          [src]="
+            actualTheme == 'lightTheme'
+              ? '../assets/icon-moon.svg'
+              : '../assets/icon-sun.svg'
+          "
+          alt="icon moon"
+        />
       </span>
     </header>
 
     <input-task></input-task>
     <task-list></task-list>
-
   </section>
-
 
   <label>Drag and drop to reorder list</label>
 </div>

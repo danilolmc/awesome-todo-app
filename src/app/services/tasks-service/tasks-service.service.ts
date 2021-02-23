@@ -1,8 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { EventEmitter, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Task } from 'src/app/core/Task';
 import { environment } from 'src/environments/environment';
+import { catchError } from 'rxjs/operators';
 
 
 
@@ -64,7 +65,7 @@ export class TasksService {
 
   deleteCompleted(id_list: number[]): void {
 
-    let deleteOperation$ : Promise<Task>[] = [];
+    let deleteOperation$: Promise<Task>[] = [];
 
     id_list.forEach(task_id => {
 

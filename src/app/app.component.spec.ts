@@ -1,6 +1,7 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 describe('AppComponent', () => {
 
@@ -38,9 +39,13 @@ describe('AppComponent', () => {
 
     fixture.detectChanges()
 
+    let bgImgElement  = fixture.debugElement.query(By.css('.bg-image-container')).children[0];
+
+    expect(bgImgElement.nativeElement.className).toBe('darkModeBackground')
     expect(localStorage.getItem('theme')).toBe('darkTheme');
     expect(component.actualTheme).toEqual('darkTheme');
     expect(spyChangeTheme).toBeCalledTimes(1)
+
 
   })
 
@@ -49,13 +54,13 @@ describe('AppComponent', () => {
 
     component.actualTheme = 'darkTheme';
 
-    fixture.detectChanges()
-
-
     component.changeTheme()
 
     fixture.detectChanges()
 
+    let bgImgElement  = fixture.debugElement.query(By.css('.bg-image-container')).children[0];
+
+    expect(bgImgElement.nativeElement.className).toBe('lightModeBackground')
 
     expect(localStorage.getItem('theme')).toBe('lightTheme');
     expect(component.actualTheme).toEqual('lightTheme');
