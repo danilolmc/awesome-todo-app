@@ -7,6 +7,7 @@
     "build": "ng build",
     "test": "jest --watchAll",
     "test:coverage": "jest --coverage",
+    "test:badges": "npm run test:coverage  && jest-coverage-badges",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -22,6 +23,7 @@
     "@angular/platform-browser": "~11.0.5",
     "@angular/platform-browser-dynamic": "~11.0.5",
     "@angular/router": "~11.0.5",
+    "jest-coverage-badges": "^1.1.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
@@ -42,6 +44,11 @@
     "typescript": "~4.0.2"
   },
   "jest": {
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ],
     "preset": "jest-preset-angular",
     "setupFilesAfterEnv": [
       "<rootDir>/setupJest.ts"

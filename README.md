@@ -1,10 +1,24 @@
 # Front end Mentor TODO App challenge
 
+
+<div style="text-align:center">
+
+<img src="./badges/master.svg"/>
+
+<img src="https://img.shields.io/static/v1?label=PRs&message=welcome&color=43bd16&labelColor=535353" />
+
+<img alt="stars" src="https://img.shields.io/github/stars/DaniloLima122/awesome-todo-app?color=43bd16">
+
+</div>
+
+<br/>
+
 ### ToDo list app built with Angular, Material Design with drag and drop, dark/light theme and Json Server
 
 <br/>
 
 ![](todo.JPG)
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
 
@@ -12,12 +26,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 This project is using Json Server for simulate an API, follow the steps bellow to install and run JSON server
 
-1 - Type on your terminal end press enter for installing Json server: `npm install -g json-server` 
+1 - Type on your terminal end press enter for installing Json server: `npm install -g json-server`
 
-2 - Now, navigate to folder 'fakeapi' and type: `json-server --watch db.json` 
+2 - Now, navigate to folder 'fakeapi' and type: `json-server --watch db.json`
 
-3 - All ready, now the server will be available at http://localhost:3000, have fun!! 
-
+3 - All ready, now the server will be available at http://localhost:3000, have fun!!
 
 ## Development server
 

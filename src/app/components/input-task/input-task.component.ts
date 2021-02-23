@@ -30,7 +30,6 @@ export class InputTaskComponent implements OnInit {
       status: this.checkbox.isSelected ? 'completed' : 'active'
     };
 
-
     this.valitadeField() && this.taskService.addNewTask(newTask)
 
   }
