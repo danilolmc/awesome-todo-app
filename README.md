@@ -1,4 +1,4 @@
-# Front end Mentor TODO App challenge
+<h1 align="center">Front end Mentor TODO App challenge</h1>
 
 <br/>
 <br/>
