@@ -1,7 +1,7 @@
 # Front end Mentor TODO App challenge
 
 
-<div style="text-align:center">
+<div style="text-align:center;">
 
 <img src="./badges/master.svg"/>
 
