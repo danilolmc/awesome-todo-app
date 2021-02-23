@@ -1,11 +1,10 @@
-import { ComponentFixture, TestBed, waitForAsync, async } from '@angular/core/testing';
+import { EventEmitter } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { Task } from 'src/app/core/Task';
 import { TasksService } from "../../services/tasks-service/tasks-service.service";
 import { TaskItemModule } from '../task-item/task-item.module';
 import { TaskListComponent } from './task-list.component';
-import { EventEmitter } from '@angular/core';
-import { TaskList } from 'src/app/core/TaskList';
 
 
 
