@@ -1,7 +1,9 @@
-# Front end Mentor TODO App challenge
+<h1 align="center">Front end Mentor TODO App challenge</h1>
 
+<br/>
+<br/>
 
-<div style="text-align:center;">
+<div align="center">
 
 <img src="./badges/master.svg"/>
 
@@ -12,8 +14,9 @@
 </div>
 
 <br/>
+<br/>
 
-### ToDo list app built with Angular, Material Design with drag and drop, dark/light theme and Json Server
+### ToDo list app built with Angular, Material Design with drag and drop, dark/light theme, Json Server and Unit Testing with Jest
 
 <br/>
 
