@@ -28,4 +28,4 @@ jobs:
     - name: Install dependencies
       run: npm install
     - name: Test
-      run: npm run test -- --configuration=ci
+      run: npm run test:ci -- --configuration=ci
