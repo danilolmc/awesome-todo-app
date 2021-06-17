@@ -4,8 +4,10 @@
 <br/>
 
 <div align="center">
-  
-[![Tests](https://github.com/DaniloLima122/awesome-todo-app/actions/workflows/node.yml/badge.svg)](https://github.com/DaniloLima122/awesome-todo-app/actions/workflows/node.yml)  
+
+  <div>
+[![Tests](https://github.com/DaniloLima122/awesome-todo-app/actions/workflows/node.yml/badge.svg)](https://github.com/DaniloLima122/awesome-todo-app/actions/workflows/node.yml) 
+  </div> 
 <img src="./badges/master.svg"/>
 
 <img src="https://img.shields.io/static/v1?label=PRs&message=welcome&color=43bd16&labelColor=535353" />
