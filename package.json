@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "jest --watchAll",
+    "test:ci": "jest --watch=false",
     "test:coverage": "jest --coverage",
     "test:badges": "npm run test:coverage  && jest-coverage-badges",
     "lint": "ng lint",
