@@ -1,0 +1,57 @@
+:host{
+  /* border: 2px solid red; */
+  padding: 2rem;
+  margin-top: 5rem;
+}
+
+form{
+  width: 600px;
+}
+
+input,button{
+  padding: 1.5rem 2.5rem 1.5rem 1.3rem;
+  display: block;
+  width: 100%;
+  margin: 1rem 0 2rem;
+  border-radius: 5px;
+  font-size: 1.2rem;
+}
+
+checkbox{
+  margin: 2rem 0;
+  display: block;
+  position: relative;
+}
+
+checkbox::before{
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 100%;
+  border: 1px solid #fff;
+  display: block;
+  pointer-events: none;
+  border-radius: 50%;
+  top: -1.2px;
+  left: -1px;
+}
+
+checkbox::ng-deep{
+  color: #fff;
+}
+
+
+
+label{
+  color: #fff;
+}
+
+input{
+  color: var(--tasks-font-color);
+}
+
+button{
+  background: linear-gradient(120deg,hsl(192, 100%, 67%),hsl(280, 87%, 65%));
+  color: #fff;
+  cursor: pointer;
+}

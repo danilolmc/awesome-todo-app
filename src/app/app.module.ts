@@ -1,26 +1,30 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterLink, RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { CheckboxModule } from './components/checkbox/checkbox.module';
-import { InputTaskModule } from './components/input-task/input-task.module';
-import { TaskListModule } from './components/task-list/task-list.module';
-import { ThemeDirective } from './shared/directives/theme/theme.directive';
-import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app.routing.module';
+import { LoginModule } from './components/login/login.module';
+import { HomeComponent } from './pages/home/home.component';
+import { HomeModule } from './pages/home/home.module';
+import { TodoListModule } from './pages/todo-list/todo-list.module';
 
+const routes : Routes = [{
+  path: '',
+  pathMatch: 'full',
+  component: HomeComponent
+}]
 
 @NgModule({
   declarations: [
     AppComponent,
-    ThemeDirective,
   ],
   imports: [
     CommonModule,
     BrowserModule,
-    InputTaskModule,
-    TaskListModule,
-    CheckboxModule,
-    HttpClientModule,
+    HomeModule,
+    TodoListModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

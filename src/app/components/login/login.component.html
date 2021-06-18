@@ -1,0 +1,15 @@
+<form [formGroup]="formLoginGroup" (submit)="login($event)">
+
+  <div class="login">
+    <label for="login">Login</label>
+    <input type="text" formControlName="login" id="login"/>
+  </div>
+  <div class="password">
+    <label for="password">Password</label>
+    <input type="password" formControlName="password" id="password"/>
+  </div>
+  <div class="rememberMe">
+    <checkbox [taskId]="'rememberme'" [text]="'Remember me'" (selectCheckbox)="rememberLogin = $event"></checkbox>
+  </div>
+  <button>Entrar</button>
+</form>

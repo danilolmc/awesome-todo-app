@@ -9,15 +9,17 @@ export class CheckboxComponent{
 
   @Input() taskId : string = "checkbox";
 
+  @Input() text = "";
+
   @Input() isSelected = false;
 
-  @Output() selectTask = new EventEmitter<boolean>(this.isSelected);
+  @Output() selectCheckbox = new EventEmitter<boolean>(this.isSelected);
 
   constructor() { }
 
   toggleCheckBox(){
 
     this.isSelected = !this.isSelected;
-    this.selectTask.emit(this.isSelected);
+    this.selectCheckbox.emit(this.isSelected);
   }
 }

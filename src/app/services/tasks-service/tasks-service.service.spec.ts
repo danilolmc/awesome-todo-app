@@ -29,8 +29,8 @@ describe('TasksServiceService', () => {
       providers: [TasksService]
     });
 
-    service = TestBed.get(TasksService);
-    httpMock = TestBed.get(HttpTestingController);
+    service = TestBed.inject(TasksService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
 

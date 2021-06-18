@@ -1,6 +1,6 @@
 <li >
   <div (click)="CompleteTaskByClickingAtItName()">
-    <checkbox [taskId]="task.id.toString()" (selectTask)="selectedCheckbox($event)" #checkbox [isSelected]="isSelected"></checkbox>
+    <checkbox [taskId]="task.id.toString()" (selectCheckbox)="selectedCheckbox($event)" #checkbox [isSelected]="isSelected"></checkbox>
     <label selectedEffecttask [statusTaskSelected]="isSelected">{{task.description}}</label>
   </div>
   <button (click)="deleteTask(task.id)" class="deleteButton">

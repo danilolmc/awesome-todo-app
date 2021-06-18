@@ -1,9 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { EventEmitter, Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Task } from 'src/app/core/Task';
 import { environment } from 'src/environments/environment';
-import { catchError } from 'rxjs/operators';
 
 
 

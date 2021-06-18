@@ -1,6 +1,7 @@
-.checkbox-container{
-  width: 30px;
-  height: 30px;
+label{
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
 }
 
 input[type="checkbox"]{
@@ -10,8 +11,8 @@ input[type="checkbox"]{
 .check-icon-container{
   border: 1px solid var(--color-item-finished);
   background: transparent;
-  height: 100%;
-  width: 100%;
+  width: 30px;
+  height: 30px;
   padding: 1px;
 }
 
