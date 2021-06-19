@@ -30,8 +30,6 @@ const taskService = {
   deleteTaskEventEmitter: { emit: jest.fn().mockReturnValue(undefined) },
   setTaskAsCompleted: jest.fn(id => id).mockReturnValue(of({})),
   unsetTaskAsCompleted: jest.fn(id => id).mockReturnValue(of({}))
-
-
 }
 
 

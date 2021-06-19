@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,9 @@ export class LoginComponent implements OnInit {
 
   formLoginGroup = {} as FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  loginStatus = false;
+
+  constructor(private formBuilder: FormBuilder, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.formLoginGroup = this.formBuilder.group({
@@ -22,10 +24,11 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  login(event: Event){
+  login(event: Event) {
     event.preventDefault();
 
-    console.table(this.formLoginGroup.value)
+    this.loginStatus = !this.authService.login(this.formLoginGroup.value);
+
   }
 
 }

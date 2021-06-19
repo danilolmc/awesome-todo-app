@@ -1,15 +1,16 @@
-import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterLink, RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
-import { LoginModule } from './components/login/login.module';
 import { HomeComponent } from './pages/home/home.component';
 import { HomeModule } from './pages/home/home.module';
-import { TodoListModule } from './pages/todo-list/todo-list.module';
+import { AuthService } from './services/auth-service/auth.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-const routes : Routes = [{
+const routes: Routes = [{
   path: '',
   pathMatch: 'full',
   component: HomeComponent
@@ -18,15 +19,17 @@ const routes : Routes = [{
 @NgModule({
   declarations: [
     AppComponent,
+
   ],
   imports: [
-    CommonModule,
     BrowserModule,
-    HomeModule,
-    TodoListModule,
+    HttpClientModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    HomeModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,7 +11,6 @@ import { DragDropModule } from "@angular/cdk/drag-drop"
   imports: [
     CommonModule,
     TaskItemModule,
-    BrowserAnimationsModule,
     DragDropModule
   ]
 })

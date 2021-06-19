@@ -1,3 +1,10 @@
+
+<ng-template #invalidLogin>
+  <div class="invalid-login">
+    Login ou senha inválidos
+  </div>
+</ng-template>
+
 <form [formGroup]="formLoginGroup" (submit)="login($event)">
 
   <div class="login">
@@ -13,3 +20,5 @@
   </div>
   <button>Entrar</button>
 </form>
+
+<ng-container [ngTemplateOutlet]="invalidLogin" *ngIf="loginStatus"></ng-container>

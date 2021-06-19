@@ -15,12 +15,12 @@ import { TodoListRoutingModule } from './todo-list.routing.module';
     TodoListComponent,
     ThemeDirective
   ],
+  exports: [TodoListComponent],
   imports: [
     CommonModule,
     InputTaskModule,
     TaskListModule,
     CheckboxModule,
-    HttpClientModule,
     TodoListRoutingModule
   ]
 })

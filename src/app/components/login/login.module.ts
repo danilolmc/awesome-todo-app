@@ -10,7 +10,6 @@ import { LoginComponent } from "./login.component";
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FormsModule,
     CheckboxModule
   ]
 })
