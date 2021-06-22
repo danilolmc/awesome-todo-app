@@ -9,7 +9,6 @@
 <a href="https://github.com/DaniloLima122/awesome-todo-app/actions/workflows/node.yml">
   <img src="https://github.com/DaniloLima122/awesome-todo-app/actions/workflows/node.yml/badge.svg">  
 </a>
-<img src="./badges/master.svg"/>
 
 <img src="https://img.shields.io/static/v1?label=PRs&message=welcome&color=43bd16&labelColor=535353" />
 
