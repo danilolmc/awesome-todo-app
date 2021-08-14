@@ -1,6 +1,8 @@
-export interface LoginData{
-  login: string;
-  password: string;
+export interface LoginData {
+  user: {
+    login: string;
+    password: string;
+  };
   rememberme: boolean;
 
 }

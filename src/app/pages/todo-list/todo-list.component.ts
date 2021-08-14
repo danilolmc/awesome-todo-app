@@ -8,16 +8,16 @@ import { ThemeService } from 'src/app/services/theme/theme.service';
 })
 export class TodoListComponent implements OnInit {
 
-  actualTheme = 'lightTheme'
+  actualTheme = 'lightTheme';
 
   constructor(private themeService: ThemeService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
-    this.actualTheme = localStorage.getItem('theme')?.toString() || 'lightTheme' ;
+    this.actualTheme = localStorage.getItem('theme')?.toString() || 'lightTheme';
   }
 
-  changeTheme() {
+  changeTheme(): void {
     this.themeService.setTheme();
     this.actualTheme = this.themeService.activatedTheme.value;
   }

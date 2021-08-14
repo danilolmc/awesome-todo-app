@@ -6,6 +6,6 @@
         <img src="../../../assets/icon-check.svg" alt="icon check">
       </span>
     </div>
-    <span *ngIf="text">{{text}}</span>
+    <span [ngStyle]="{'color': checkboxTextColor}" id="checkbox-text" *ngIf="text">{{text}}</span>
   </label>
 </div>

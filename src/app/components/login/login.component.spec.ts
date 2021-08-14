@@ -12,14 +12,20 @@ describe('LoginComponent', () => {
   let fixture: ComponentFixture<LoginComponent>;
   let userService: AuthService;
 
+  const authServiceMock = {
+    login: () => {
+      return false;
+    }
+  };
+
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [LoginComponent],
       imports: [ReactiveFormsModule, CheckboxModule],
       providers: [
         { provide: Router, useValue: routerMock },
-        // { provide: UserService, useValue: userServiceMock }
-        AuthService
+        { provide: AuthService, useValue: authServiceMock },
       ]
     })
       .compileComponents();
@@ -42,28 +48,33 @@ describe('LoginComponent', () => {
   describe('should make login', () => {
 
     const fakeUserLoginData = {
-      login: 'danny',
-      password: '1234'
-    }
+      user: {
+        login: 'danny',
+        password: '1234'
+      },
+      rememberme: false
+    };
+
+    const fakeLoginFormUserData = fakeUserLoginData.user;
 
     it('should fields to be valid', () => {
 
-      component.formLoginGroup.setValue(fakeUserLoginData);
+      component.formLoginGroup.setValue(fakeLoginFormUserData);
 
       const userLoginDataIsValid = component.formLoginGroup.valid;
 
       expect(userLoginDataIsValid).toBeTruthy();
 
-    })
+    });
 
     it('should authenticate user', () => {
 
-      component.formLoginGroup.setValue(fakeUserLoginData);
+      component.formLoginGroup.setValue(fakeLoginFormUserData);
 
       const spyLoginService = jest.spyOn(userService, 'login');
       const spyLoginComponent = jest.spyOn(component, 'login');
 
-      const button : HTMLButtonElement = fixture.debugElement.query(By.css('button')).nativeElement;
+      const button: HTMLButtonElement = fixture.debugElement.query(By.css('button')).nativeElement;
 
       button.click();
 
@@ -71,8 +82,6 @@ describe('LoginComponent', () => {
 
       expect(spyLoginService).toBeCalledWith(fakeUserLoginData);
       expect(spyLoginComponent).toBeCalled();
-    })
-
-
-  })
+    });
+  });
 });

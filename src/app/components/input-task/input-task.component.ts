@@ -5,7 +5,7 @@ import { TasksService } from 'src/app/services/tasks-service/tasks-service.servi
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 
 @Component({
-  selector: 'input-task',
+  selector: 'app-input-task',
   templateUrl: './input-task.component.html',
   styleUrls: ['./input-task.component.css']
 })
@@ -15,11 +15,11 @@ export class InputTaskComponent {
 
   @Output() addedTask: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild("checkbox") checkbox !: CheckboxComponent;
+  @ViewChild('checkbox') checkbox !: CheckboxComponent;
 
   constructor(private taskService: TasksService) { }
 
-  addNewTask() {
+  addNewTask(): void {
 
     const newTask: Task = {
       id: new Date().getMilliseconds(),
@@ -27,11 +27,13 @@ export class InputTaskComponent {
       status: this.checkbox.isSelected ? 'completed' : 'active'
     };
 
-    this.valitadeField() && this.taskService.addNewTask(newTask)
+    if (this.valitadeField()) {
+      this.taskService.addNewTask(newTask);
+    }
 
   }
 
-  valitadeField() {
+  valitadeField(): boolean {
 
     return this.inputTaskControl.valid;
   }

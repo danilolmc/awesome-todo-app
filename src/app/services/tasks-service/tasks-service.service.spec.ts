@@ -1,4 +1,4 @@
-import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Task } from 'src/app/core/Task';
 import { TasksService } from './tasks-service.service';
@@ -7,15 +7,15 @@ import { TasksService } from './tasks-service.service';
 const taskList = [
   {
     id: 0,
-    description: "MyTask",
+    description: 'MyTask',
     status: 'active',
   },
   {
     id: 1,
-    description: "MyTask",
+    description: 'MyTask',
     status: 'completed',
   }
-]
+];
 
 describe('TasksServiceService', () => {
 
@@ -45,9 +45,9 @@ describe('TasksServiceService', () => {
 
     const subscription = service.getTaskList().subscribe(list => {
       expect(list).toEqual(taskList);
-    })
+    });
 
-    const req = httpMock.expectOne(`${service.apiUrl}/tasks`)
+    const req = httpMock.expectOne(`${service.apiUrl}/tasks`);
 
 
     expect(req.request.method).toBe('GET');
@@ -60,7 +60,7 @@ describe('TasksServiceService', () => {
     subscription.unsubscribe();
 
     tick();
-  }))
+  }));
 
   test('should retrive active task list', fakeAsync(() => {
 
@@ -68,9 +68,9 @@ describe('TasksServiceService', () => {
 
     const subscritpion = service.getActiveTaskList().subscribe(list => {
       expect(list).toEqual(taskList);
-    })
+    });
 
-    const req = httpMock.expectOne(`${service.apiUrl}/tasks?status=active`)
+    const req = httpMock.expectOne(`${service.apiUrl}/tasks?status=active`);
 
 
     expect(req.request.method).toBe('GET');
@@ -83,7 +83,7 @@ describe('TasksServiceService', () => {
     subscritpion.unsubscribe();
 
     tick();
-  }))
+  }));
 
   test('should retrive completed task list', fakeAsync(() => {
 
@@ -91,9 +91,9 @@ describe('TasksServiceService', () => {
 
     const subscription = service.getCompletedTaskList().subscribe(list => {
       expect(list).toEqual(taskList[1]);
-    })
+    });
 
-    const req = httpMock.expectOne(`${service.apiUrl}/tasks?status=completed`)
+    const req = httpMock.expectOne(`${service.apiUrl}/tasks?status=completed`);
 
     expect(req.request.method).toBe('GET');
     expect(spyGetCompletedTaskList).toBeCalledTimes(1);
@@ -105,7 +105,7 @@ describe('TasksServiceService', () => {
     subscription.unsubscribe();
 
     tick();
-  }))
+  }));
 
   test('should add a newTask', fakeAsync(() => {
 
@@ -113,24 +113,24 @@ describe('TasksServiceService', () => {
 
     const task: Task = {
       id: 248732,
-      description: "Test",
+      description: 'Test',
       status: 'active'
-    }
+    };
 
     service.addNewTask(task);
 
-    const req = httpMock.expectOne({ url: `${service.apiUrl}/tasks`, method: 'POST' })
+    const req = httpMock.expectOne({ url: `${service.apiUrl}/tasks`, method: 'POST' });
 
     expect(req.request.method).toBe('POST');
-    expect(spyAddNewTask).toBeCalledTimes(1)
+    expect(spyAddNewTask).toBeCalledTimes(1);
 
-    req.flush(task)
+    req.flush(task);
 
     httpMock.verify();
 
-    tick()
+    tick();
 
-  }))
+  }));
 
   it('shoud set task as completed', fakeAsync(() => {
 
@@ -138,18 +138,18 @@ describe('TasksServiceService', () => {
 
     service.setTaskAsCompleted(2);
 
-    const req = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${2}`, method: 'PATCH' })
+    const req = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${2}`, method: 'PATCH' });
 
     expect(req.request.method).toBe('PATCH');
     expect(spysetTaskAsCompleted).toBeCalledTimes(1);
-    expect(spysetTaskAsCompleted).toBeCalledWith(2)
+    expect(spysetTaskAsCompleted).toBeCalledWith(2);
 
-    req.flush(2)
+    req.flush(2);
     httpMock.verify();
 
     tick();
 
-  }))
+  }));
 
   it('shoud unset task as completed', fakeAsync(() => {
 
@@ -157,17 +157,17 @@ describe('TasksServiceService', () => {
 
     service.unsetTaskAsCompleted(2);
 
-    const req = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${2}`, method: 'PATCH' })
+    const req = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${2}`, method: 'PATCH' });
 
     expect(req.request.method).toBe('PATCH');
     expect(spyunsetTaskAsCompleted).toBeCalledTimes(1);
-    expect(spyunsetTaskAsCompleted).toBeCalledWith(2)
+    expect(spyunsetTaskAsCompleted).toBeCalledWith(2);
 
-    req.flush(2)
+    req.flush(2);
     httpMock.verify();
 
     tick();
-  }))
+  }));
 
   test('shoud delete a task', fakeAsync(() => {
 
@@ -175,30 +175,30 @@ describe('TasksServiceService', () => {
 
     const subscription = service.deleteTask(2).subscribe();
 
-    const req = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${2}`, method: 'DELETE' })
+    const req = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${2}`, method: 'DELETE' });
 
     expect(req.request.method).toBe('DELETE');
     expect(spySetAsCompleted).toBeCalledTimes(1);
-    expect(spySetAsCompleted).toBeCalledWith(2)
+    expect(spySetAsCompleted).toBeCalledWith(2);
 
-    req.flush(2)
+    req.flush(2);
     httpMock.verify();
 
     subscription.unsubscribe();
 
     tick();
 
-  }))
+  }));
 
   test('shoud delete completed tasks', fakeAsync(() => {
 
     const spyDeleteCompletedTasks = jest.spyOn(service, 'deleteCompleted');
 
-    service.deleteCompleted([1,2,3]);
+    service.deleteCompleted([1, 2, 3]);
 
-    const reqA = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${1}`, method: 'DELETE' })
-    const reqB = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${2}`, method: 'DELETE' })
-    const reqC = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${3}`, method: 'DELETE' })
+    const reqA = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${1}`, method: 'DELETE' });
+    const reqB = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${2}`, method: 'DELETE' });
+    const reqC = httpMock.expectOne({ url: `${service.apiUrl}/tasks/${3}`, method: 'DELETE' });
 
     expect(reqA.request.method).toBe('DELETE');
     expect(reqB.request.method).toBe('DELETE');
@@ -206,11 +206,11 @@ describe('TasksServiceService', () => {
 
 
     expect(spyDeleteCompletedTasks).toBeCalledTimes(1);
-    expect(spyDeleteCompletedTasks).toBeCalledWith([1,2,3])
+    expect(spyDeleteCompletedTasks).toBeCalledWith([1, 2, 3]);
 
-    reqA.flush([1,2,3])
+    reqA.flush([1, 2, 3]);
     httpMock.verify();
 
     tick();
-  }))
+  }));
 });

@@ -31,35 +31,37 @@ describe('LoginService', () => {
 
   it('should login', () => {
 
-    Object.defineProperty(window, 'localStorage', {value: localStorageMock});
+    Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
     const spyLogin = jest.spyOn(service, 'login');
-    const spyNavigator = jest.spyOn(routerMock, 'navigate');
 
     const loginData: LoginData = {
-      login: 'dan',
-      password: '1234',
+      user: {
+        login: 'dan',
+        password: '1234',
+      },
       rememberme: false
-    }
+    };
 
     const token = '1234567890';
 
     service.login(loginData);
 
     expect(spyLogin).toBeCalledWith(loginData);
-    // expect(spyNavigator).toBeCalledWith(['/todo-list', {user: loginData.login}]);
     expect(store.token).toEqual(token);
-  })
+  });
 
   it('should not login with incorrect login and passowrd', () => {
 
     const spyLogin = jest.spyOn(service, 'login');
 
     const loginData: LoginData = {
-      login: 'dann',
-      password: '123',
+      user: {
+        login: 'dann',
+        password: '123',
+      },
       rememberme: false
-    }
+    };
 
     service.login(loginData);
 
@@ -67,5 +69,5 @@ describe('LoginService', () => {
     expect(spyLogin).toReturnWith(false);
     expect(store).toEqual({});
 
-  })
+  });
 });

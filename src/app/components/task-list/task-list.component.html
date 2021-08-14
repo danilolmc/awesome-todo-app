@@ -1,7 +1,7 @@
 <div class="task-list">
   <ul>
     <div [@taskListAnimation]="taskList.length" class="list" *ngIf="taskList.length > 0" cdkDropList (cdkDropListDropped)="drop($event)">
-      <task-item class="item-list-container"  *ngFor="let task of taskList" [task]="task" cdkDrag></task-item>
+      <app-task-item class="item-list-container"  *ngFor="let task of taskList" [task]="task" cdkDrag></app-task-item>
     </div>
     <div *ngIf="taskList.length == 0" class="hasNoTasks">
       No Tasks

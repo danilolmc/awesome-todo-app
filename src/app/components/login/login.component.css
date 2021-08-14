@@ -17,13 +17,13 @@ input,button{
   font-size: 1.2rem;
 }
 
-checkbox{
+app-checkbox{
   margin: 2rem 0;
   display: block;
   position: relative;
 }
 
-checkbox::before{
+app-checkbox::before{
   content: "";
   position: absolute;
   width: 30px;

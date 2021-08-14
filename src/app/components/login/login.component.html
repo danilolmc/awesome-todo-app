@@ -16,7 +16,12 @@
     <input type="password" formControlName="password" id="password"/>
   </div>
   <div class="rememberMe">
-    <checkbox [taskId]="'rememberme'" [text]="'Remember me'" (selectCheckbox)="rememberLogin = $event"></checkbox>
+    <app-checkbox 
+        [taskId]="'rememberme'" 
+        [text]="'Remember me'" 
+        (selectCheckbox)="rememberLogin = $event" 
+        [checkboxTextColor]="'white'">
+      </app-checkbox>
   </div>
   <button>Entrar</button>
 </form>

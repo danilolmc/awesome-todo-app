@@ -1,23 +1,25 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'checkbox',
+  selector: 'app-checkbox',
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.css']
 })
-export class CheckboxComponent{
+export class CheckboxComponent {
 
-  @Input() taskId : string = "checkbox";
+  @Input() taskId = 'checkbox';
 
-  @Input() text = "";
+  @Input() text = '';
 
   @Input() isSelected = false;
 
   @Output() selectCheckbox = new EventEmitter<boolean>(this.isSelected);
 
+  @Input() checkboxTextColor = '';
+
   constructor() { }
 
-  toggleCheckBox(){
+  toggleCheckBox(): void {
 
     this.isSelected = !this.isSelected;
     this.selectCheckbox.emit(this.isSelected);

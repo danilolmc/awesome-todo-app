@@ -10,14 +10,14 @@ import { CheckboxComponent } from '../checkbox/checkbox.component';
 
 const newTask: Task = {
   id: new Date().getMilliseconds(),
-  description: "my task",
+  description: 'my task',
   status: 'active'
-}
+};
 
 const serviceTask = {
 
   addNewTask: jest.fn().mockReturnValue(undefined)
-}
+};
 
 
 describe('InputSearchComponent', () => {
@@ -42,7 +42,7 @@ describe('InputSearchComponent', () => {
       inputDebugElement = fixture.debugElement.query(By.css('.input-task'));
       fixture.detectChanges();
       })
-      .catch(() => { })
+      .catch(() => { });
   });
 
 
@@ -52,33 +52,33 @@ describe('InputSearchComponent', () => {
 
   test('should invalidate adding action if task input is invalid', () => {
 
-    inputTask.setValue('')
+    inputTask.setValue('');
 
     const statusValidField = component.valitadeField();
 
     inputDebugElement.triggerEventHandler('keydown.enter', {});
 
-    fixture.detectChanges()
+    fixture.detectChanges();
 
     expect(statusValidField).toBeFalsy();
     expect(serviceTask.addNewTask).toBeCalledTimes(0);
 
-  })
+  });
 
   test('should add task to service only when keydown key is \'enter\' and input is valid', () => {
 
-    inputTask.setValue('Make walking')
+    inputTask.setValue('Make walking');
 
     const addNewTask = jest.spyOn(component, 'addNewTask');
 
     inputDebugElement.triggerEventHandler('keydown.enter', {});
 
 
-    fixture.detectChanges()
+    fixture.detectChanges();
 
-    expect(addNewTask).toBeCalledTimes(1)
-    expect(serviceTask.addNewTask).toBeCalledTimes(1)
-    expect(component.valitadeField()).toBeTruthy()
+    expect(addNewTask).toBeCalledTimes(1);
+    expect(serviceTask.addNewTask).toBeCalledTimes(1);
+    expect(component.valitadeField()).toBeTruthy();
 
-  })
+  });
 });

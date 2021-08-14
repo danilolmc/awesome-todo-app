@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginData } from 'src/app/core/LoginData';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 
 @Component({
@@ -21,13 +22,21 @@ export class LoginComponent implements OnInit {
     this.formLoginGroup = this.formBuilder.group({
       login: ['', Validators.required],
       password: ['', Validators.required],
-    })
+    });
   }
 
-  login(event: Event) {
+  login(event: Event): void {
     event.preventDefault();
 
-    this.loginStatus = !this.authService.login(this.formLoginGroup.value);
+    const userLoginData: LoginData = {
+      user: {
+        login: this.formLoginGroup.get('login')?.value.toString(),
+        password: this.formLoginGroup.get('password')?.value.toString()
+      },
+      rememberme: this.rememberLogin
+    };
+
+    this.loginStatus = !this.authService.login(userLoginData);
 
   }
 

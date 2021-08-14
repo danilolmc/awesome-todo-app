@@ -12,15 +12,15 @@ export class AuthService {
 
   userIsAuthenticated = false;
 
-  constructor(private router : Router) { }
+  constructor(private router: Router) { }
 
-  login(loginData: LoginData) : boolean {
+  login(loginData: LoginData): boolean {
 
-    if(loginData.login === 'dan' && loginData.password === '1234'){
+    if (loginData.user.login === 'dan' && loginData.user.password === '1234') {
 
       localStorage.setItem('token', '1234567890');
 
-      this.router.navigate(['/todo-list',{user: loginData.login}]);
+      this.router.navigate(['/todo-list', { user: loginData.user.login }]);
 
       return true;
     }

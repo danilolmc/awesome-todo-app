@@ -6,14 +6,14 @@ import { Task } from 'src/app/core/Task';
 import { TasksService } from 'src/app/services/tasks-service/tasks-service.service';
 
 @Component({
-  selector: 'task-list',
+  selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css'],
   animations: [
     trigger('taskListAnimation', [
 
-      transition("void => *", [
-        query(":enter", [
+      transition('void => *', [
+        query(':enter', [
           style({ opacity: 0, transform: 'translateY(50px)' }),
           stagger(100, [
             animate('.7s  ease', style({ opacity: 1, transform: 'translateY(0px)' }))
@@ -25,63 +25,63 @@ import { TasksService } from 'src/app/services/tasks-service/tasks-service.servi
 })
 export class TaskListComponent implements OnInit {
 
-  taskList: Task[] = []
+  taskList: Task[] = [];
 
-  actualListType = "All";
+  actualListType = 'All';
 
-  functionToExcute: Function = () => { }
+  functionToExcute = () => { };
 
   constructor(private taskListService: TasksService) { }
 
-  getTaskList() {
-    this.setActualList("All")
+  getTaskList(): void {
+    this.setActualList('All');
     this.taskListService.getTaskList().subscribe((allList: Task[]) => {
-      this.taskList = allList
+      this.taskList = allList;
     },
-      (erro: Error) => { console.log(`Was not possible retrieve Task List : ${erro.message}`) })
+      (erro: Error) => console.log(`Was not possible retrieve Task List : ${erro.message}`));
   }
 
-  getActiveTaskList() {
+  getActiveTaskList(): void {
 
-    this.setActualList("Active")
+    this.setActualList('Active');
     this.taskListService.getActiveTaskList().subscribe(activeList => {
-      this.taskList = activeList
+      this.taskList = activeList;
     },
-      (erro: Error) => { console.log(`Was not possible retrieve Activated Task List : ${erro.message}`) }
-    )
+      (erro: Error) => console.log(`Was not possible retrieve Activated Task List : ${erro.message}`)
+    );
   }
 
-  getCompletedTaskList() {
+  getCompletedTaskList(): void {
 
-    this.setActualList("Completed")
+    this.setActualList('Completed');
     this.taskListService.getCompletedTaskList().subscribe(completedList => {
-      this.taskList = completedList
+      this.taskList = completedList;
     },
-      (erro: Error) => { console.log(`Was not possible retrieve Completed Task List : ${erro.message}`) })
+      (erro: Error) => console.log(`Was not possible retrieve Completed Task List : ${erro.message}`));
   }
 
-  setActualList(listType: string) {
+  setActualList(listType: string): void {
 
     this.actualListType = listType;
   }
 
-  clearCompleted() {
+  clearCompleted(): void {
 
     this.taskListService
       .getCompletedTaskList()
       .pipe(
         switchMap(taskList => taskList),
-        map(task => { return task.id }),
+        map(task => task.id),
         toArray()
       )
       .subscribe(completedTasks => {
-        this.taskListService.deleteCompleted(completedTasks)
+        this.taskListService.deleteCompleted(completedTasks);
       },
-      (erro: Error) => { console.log(`Was not possible clear completed tasks : ${erro.message}`) }
+        (erro: Error) => console.log(`Was not possible clear completed tasks : ${erro.message}`)
       );
   }
 
-  eventEmitterListener(eventEmitter: EventEmitter<Task>) {
+  eventEmitterListener(eventEmitter: EventEmitter<Task>): void {
 
     const getFunctions: any = {
 
@@ -89,15 +89,15 @@ export class TaskListComponent implements OnInit {
       Active: this.getActiveTaskList,
       Completed: this.getCompletedTaskList
 
-    }
+    };
     eventEmitter
       .subscribe(() => {
-        this.functionToExcute = getFunctions[this.actualListType]
+        this.functionToExcute = getFunctions[this.actualListType];
         this.functionToExcute();
       });
   }
 
-  drop(event: CdkDragDrop<Task[]>) {
+  drop(event: CdkDragDrop<Task[]>): void {
 
     moveItemInArray(this.taskList, event.previousIndex, event.currentIndex);
   }

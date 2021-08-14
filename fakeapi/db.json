@@ -1,11 +1,5 @@
 {
-  "tasks": [
-    {
-      "id": 426,
-      "description": "asdasd",
-      "status": "completed"
-    }
-  ],
+  "tasks": [],
   "users": [],
   "login": {
     "user": {},

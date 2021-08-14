@@ -11,15 +11,15 @@ import { TaskItemComponent } from './task-item.component';
 const taskList: Task[] = [
   {
     id: 0,
-    description: "MyTask",
+    description: 'MyTask',
     status: 'active'
   },
   {
     id: 0,
-    description: "MyTask",
+    description: 'MyTask',
     status: 'completed'
   }
-]
+];
 
 const taskService = {
 
@@ -30,7 +30,7 @@ const taskService = {
   deleteTaskEventEmitter: { emit: jest.fn().mockReturnValue(undefined) },
   setTaskAsCompleted: jest.fn(id => id).mockReturnValue(of({})),
   unsetTaskAsCompleted: jest.fn(id => id).mockReturnValue(of({}))
-}
+};
 
 
 describe('TaskItemComponent', () => {
@@ -53,14 +53,14 @@ describe('TaskItemComponent', () => {
         component.task = taskList[0];
         fixture.detectChanges();
       })
-      .catch(() => { })
+      .catch(() => { });
   }));
 
 
   it('should create', () => {
 
     expect(component).toBeTruthy();
-    expect(component.isSelected).toBeFalsy()
+    expect(component.isSelected).toBeFalsy();
   });
 
   test('should delete a task', async () => {
@@ -73,7 +73,7 @@ describe('TaskItemComponent', () => {
     expect(taskService.deleteTask).toBeCalledWith(2);
     expect(taskService.deleteTaskEventEmitter.emit).toBeCalledTimes(1);
 
-  })
+  });
 
   test('should complete task when click at item', () => {
 
@@ -83,7 +83,7 @@ describe('TaskItemComponent', () => {
 
     expect(spyCompleteTaskByClickingAtItName).toBeCalledTimes(1);
 
-  })
+  });
 
   test('should call setTaskAsCompleted when isSelect is true', () => {
 
@@ -96,7 +96,7 @@ describe('TaskItemComponent', () => {
     expect(spytoggleCompleteTask).toBeCalledTimes(1);
     expect(taskService.setTaskAsCompleted).toBeCalled();
 
-  })
+  });
 
   test('should call unsetTaskAsCompleted when isSelect is true', () => {
 
@@ -109,7 +109,7 @@ describe('TaskItemComponent', () => {
     expect(spytoggleCompleteTask).toBeCalledTimes(1);
     expect(taskService.unsetTaskAsCompleted).toBeCalled();
 
-  })
+  });
 
   test('should call selectedCheckbox at checkbox eventemitter', () => {
 
@@ -122,6 +122,6 @@ describe('TaskItemComponent', () => {
     expect(component.isSelected).toBeTruthy();
     expect(spytoggleCompleteTask).toBeCalled();
     expect(spyselectedCheckbox).toBeCalledTimes(1);
-  })
+  });
 
 });

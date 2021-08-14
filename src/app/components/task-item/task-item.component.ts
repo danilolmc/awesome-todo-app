@@ -4,7 +4,7 @@ import { TasksService } from 'src/app/services/tasks-service/tasks-service.servi
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 
 @Component({
-  selector: 'task-item',
+  selector: 'app-task-item',
   templateUrl: './task-item.component.html',
   styleUrls: ['./task-item.component.css'],
 })
@@ -19,35 +19,42 @@ export class TaskItemComponent implements OnInit {
   constructor(private taskService: TasksService) { }
 
   ngOnInit(): void {
-    this.task.status == 'completed' ? this.isSelected = true : false;
+
+    const taskIsCompleted = this.task.status === 'completed';
+
+    if (taskIsCompleted) {
+      this.isSelected = true;
+    } else {
+      this.isSelected = false;
+    }
   }
 
-  selectedCheckbox(statusCheckbox: boolean) {
+  selectedCheckbox(statusCheckbox: boolean): void {
 
     this.isSelected = statusCheckbox;
-    this.toggleCompleteTask()
+    this.toggleCompleteTask();
   }
 
-  CompleteTaskByClickingAtItName() {
+  CompleteTaskByClickingAtItName(): void {
 
-    this.checkbox.toggleCheckBox()
+    this.checkbox.toggleCheckBox();
   }
 
-  toggleCompleteTask() {
+  toggleCompleteTask(): void {
 
     this.isSelected
       ? this.taskService.setTaskAsCompleted(this.task.id)
-      : this.taskService.unsetTaskAsCompleted(this.task.id)
+      : this.taskService.unsetTaskAsCompleted(this.task.id);
   }
 
-  deleteTask(id: number) {
+  deleteTask(id: number): Promise<any> {
 
     return this.taskService
       .deleteTask(id)
       .toPromise()
       .then(() => {
-        this.taskService.deleteTaskEventEmitter.emit()
-      })
+        this.taskService.deleteTaskEventEmitter.emit();
+      });
 
   }
 
